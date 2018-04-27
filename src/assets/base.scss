@@ -1,0 +1,140 @@
+html{
+  background-color: #f5f5f5;
+  height: 100%;
+}
+body {
+  height: 100%;
+}
+.icon {
+  /* 通过设置 font-size 来改变图标大小 */
+  width: 1em; height: 1em;
+  /* 图标和文字相邻时，垂直对齐 */
+  /* 通过设置 color 来改变 SVG 的颜色/fill */
+  fill: currentColor;
+  /* path 和 stroke 溢出 viewBox 部分在 IE 下会显示
+      normalize.css 中也包含这行 */
+  overflow: hidden;
+}
+
+input::-webkit-input-placeholder, input::-moz-placeholder, input:-moz-placeholder{
+  color: rgba(0,0,0,0.38);
+}
+
+.price-font {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.estate-radio-temp {
+  display: block;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  position: relative;
+  width: 18px;
+  height: 18px;
+  &:after {
+    content: " ";
+    border-radius: 100%;
+    position: absolute;
+    transition: transform .2s;
+    transform: scale(0);
+    width: 18px;
+    height: 18px;
+    border: 4px solid #FFFFFF;
+    box-sizing: border-box;
+  }
+}
+
+.estate-radio-temp.selected {
+  background-color: #F16622;
+  border-color: #F16622;
+  &:after {
+    transform: scale(1);
+  }
+}
+
+.estate-checkbox-temp {
+  display: inline-block;
+  position: relative;
+  top: 1px;
+  border: 1px solid #9E9E9E;
+  box-sizing: border-box;
+  width: 14px;
+  height: 14px;
+  background-color: #f2f3f4;
+  z-index: 1;
+  transition: border-color .25s cubic-bezier(.71,-.46,.29,1.46),background-color .25s cubic-bezier(.71,-.46,.29,1.46);
+}
+
+.estate-checkbox-temp:after {
+  box-sizing: content-box;
+  content: "";
+  border: 1px solid #F16622;
+  border-left: 0;
+  border-top: 0;
+  height: 7px;
+  left: 4px;
+  position: absolute;
+  top: 1px;
+  transform: rotate(45deg) scaleY(0);
+  width: 3px;
+  transition: transform .15s cubic-bezier(.71,-.46,.88,.6) .05s;
+  transform-origin: center;
+}
+
+.estate-checkbox-temp.checked:after {
+  transform: rotate(45deg) scaleY(1);
+}
+
+/* 行高 */
+.lh-16 {
+  line-height: 16px;
+}
+.lh-20 {
+  line-height: 20px;
+}
+.lh-24 {
+  line-height: 24px;
+}
+.lh-32 {
+  line-height: 32px;
+}
+
+/* 背景色 */
+.bgc-w{
+  background-color: #fff;
+}
+.bgc-t {
+  background-color: transparent;
+}
+.bgc-base {
+  background-color: #F2F3F4;
+}
+
+/* flex布局 */
+.fx-aj-center{
+  align-items: center;
+  justify-content: center;
+}
+
+.fx-justify-around {
+  justify-content: space-around;
+}
+
+/* 字体颜色 */
+.c-87{
+  color:rgba(0,0,0,0.87);
+}
+.c-38{
+  color:rgba(0,0,0,0.38);
+}
+
+/* 交互反馈 */
+.click-fbk-grey:active {
+  background: #f9f9f9 !important;
+}
+
+.btn-orange-fbk:active {
+  background: #D85B1E !important;
+  color: #fff !important;
+}
