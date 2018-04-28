@@ -6,13 +6,8 @@ body {
   height: 100%;
 }
 .icon {
-  /* 通过设置 font-size 来改变图标大小 */
-  width: 1em; height: 1em;
-  /* 图标和文字相邻时，垂直对齐 */
-  /* 通过设置 color 来改变 SVG 的颜色/fill */
-  fill: currentColor;
-  /* path 和 stroke 溢出 viewBox 部分在 IE 下会显示
-      normalize.css 中也包含这行 */
+  width: 1em; 
+  height: 1em;
   overflow: hidden;
 }
 
@@ -102,31 +97,24 @@ input::-webkit-input-placeholder, input::-moz-placeholder, input:-moz-placeholde
 
 /* 背景色 */
 .bgc-w{
-  background-color: #fff;
+  background-color: #fff !important;
 }
 .bgc-t {
-  background-color: transparent;
+  background-color: transparent !important;
 }
 .bgc-base {
-  background-color: #F2F3F4;
-}
-
-/* flex布局 */
-.fx-aj-center{
-  align-items: center;
-  justify-content: center;
-}
-
-.fx-justify-around {
-  justify-content: space-around;
+  background-color: #F2F3F4 !important;
 }
 
 /* 字体颜色 */
-.c-87{
-  color:rgba(0,0,0,0.87);
+.c-red {
+  color: #db4c3f !important;
 }
-.c-38{
-  color:rgba(0,0,0,0.38);
+.c-yellow {
+  color: #e6b322 !important;
+}
+.c-grey {
+  color: #8b8b8b !important;
 }
 
 /* 交互反馈 */
@@ -137,4 +125,10 @@ input::-webkit-input-placeholder, input::-moz-placeholder, input:-moz-placeholde
 .btn-orange-fbk:active {
   background: #D85B1E !important;
   color: #fff !important;
+}
+
+/* 盒子属性 */
+.img-full {
+  width: 100%;
+  height: 100%;
 }

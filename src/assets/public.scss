@@ -31,7 +31,7 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
 
 a {
   text-decoration: none;
-  color: #757575;
+  color: #333333;
 }
 
 //去掉iPhone、iPad的默认按钮样式
@@ -56,7 +56,7 @@ body {
   font-family: "Tahoma", "Hiragino Sans GB", "Source Han Sans CN", arial, sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  color: #757575;
+  color: #333333;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -152,6 +152,9 @@ body {
 .f-30 {font-size: 30px !important;}
 .f-32 {font-size: 32px !important;}
 
+// 文字粗细
+.bold {font-weight: bold !important;}
+
 //对齐
 .ta-l {text-align: left !important;}
 .ta-r {text-align: right !important;}
@@ -162,6 +165,7 @@ body {
 
 //文字颜色
 .c-2 {color: #212121 !important;}
+.c-3 {color: #333333 !important;}
 .c-7 {color: #757575 !important;}
 .c-9 {color: #9E9E9E !important;}
 .c-a {color: #ABABAB !important;}
@@ -171,69 +175,51 @@ body {
 
 //flex布局
 .fx {
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
 }
 
 .fx-v {
-  -webkit-box-orient: vertical;
-  -webkit-flex-direction: column;
   flex-direction: column;
 }
 
 .fx-1 {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1 1 auto;
   flex: 1 1 auto;
 }
 
 .fx-1-0 {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1 0 auto;
   flex: 1 0 auto;
 }
 
 .fx-n {
-  -webkit-box-flex: 0;
-  -webkit-flex: 0 0 auto;
   flex: 0 0 auto;
 }
 
 .fx-align-start {
-  -webkit-box-align: start;
-  -webkit-align-items: flex-start;
   align-items: flex-start;
 }
 
 .fx-align-center {
-  -webkit-box-align: center;
-  -webkit-align-items: center;
   align-items: center;
 }
 
 .fx-align-end {
-  -webkit-box-align: end;
-  -webkit-align-items: flex-end;
   align-items: flex-end;
 }
 
 .fx-justify-center {
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
   justify-content: center;
 }
 
 .fx-justify-end {
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
   justify-content: flex-end;
 }
 
 .fx-justify-between {
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
   justify-content: space-between;
+}
+
+.fx-justify-around {
+  justify-content: space-around;
 }
 
 .bd-t {
