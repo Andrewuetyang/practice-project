@@ -82,8 +82,14 @@ input::-webkit-input-placeholder, input::-moz-placeholder, input:-moz-placeholde
 }
 
 /* 行高 */
+.lh-1 {
+  line-height: 1 !important;
+}
 .lh-16 {
   line-height: 16px;
+}
+.lh-19 {
+  line-height: 19px;
 }
 .lh-20 {
   line-height: 20px;
@@ -91,8 +97,29 @@ input::-webkit-input-placeholder, input::-moz-placeholder, input:-moz-placeholde
 .lh-24 {
   line-height: 24px;
 }
+.lh-28 {
+  line-height: 28px;
+}
 .lh-32 {
   line-height: 32px;
+}
+.lh-33 {
+  line-height: 33px;
+}
+.lh-36 {
+  line-height: 36px;
+}
+.lh-38 {
+  line-height: 38px;
+}
+.lh-40 {
+  line-height: 40px;
+}
+.lh-44 {
+  line-height: 44px;
+}
+.lh-55 {
+  line-height: 55px;
 }
 
 /* 背景色 */
@@ -105,10 +132,13 @@ input::-webkit-input-placeholder, input::-moz-placeholder, input:-moz-placeholde
 .bgc-base {
   background-color: #F2F3F4 !important;
 }
+.bgc-green {
+  background-color: #02af67 !important;
+}
 
 /* 字体颜色 */
 .c-red {
-  color: #db4c3f !important;
+  color: #f55741 !important;
 }
 .c-yellow {
   color: #e6b322 !important;
@@ -116,19 +146,64 @@ input::-webkit-input-placeholder, input::-moz-placeholder, input:-moz-placeholde
 .c-grey {
   color: #8b8b8b !important;
 }
+.c-green {
+  color: #02af67 !important;
+}
 
 /* 交互反馈 */
 .click-fbk-grey:active {
   background: #f9f9f9 !important;
 }
 
-.btn-orange-fbk:active {
-  background: #D85B1E !important;
+.btn-fbk:active {
+  background: transparent !important;
+}
+
+.btn-fbk-green:active {
+  background: rgb(24, 161, 102) !important;
   color: #fff !important;
 }
 
-/* 盒子属性 */
+/* 业务常用样式 */
+.bs-bb {
+  box-sizing: border-box;
+}
 .img-full {
   width: 100%;
   height: 100%;
+}
+
+.btn-base {
+  color: #fff;
+  background: #00AE66;
+  text-align: center;
+  border-radius: 2px;
+  user-select: none;
+}
+
+.tag {
+  font-size: 12px;
+  padding: 2px 4px;
+  line-height: 1;
+  margin-right: 5px;
+  background-color: #f4f7f9;
+  color: #849aae;
+}
+
+.arrow-right {
+  position: relative;
+}
+
+.arrow-right:after {
+  position: absolute;
+  content: " ";
+  width: 8px;
+  height: 8px;
+  border-right: 1px solid #9c9fa1;
+  border-top: 1px solid #9c9fa1;
+  -webkit-transform: translateY(-50%) rotate(45deg);
+  -ms-transform: translateY(-50%) rotate(45deg);
+  transform: translateY(-50%) rotate(45deg);
+  right: 19px;
+  top: 50%;
 }

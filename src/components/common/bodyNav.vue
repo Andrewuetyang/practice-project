@@ -1,29 +1,29 @@
 <template>
   <div class="body-nav fx bd-b">
-    <a class="fx-1 fx fx-justify-center" href="#">
+    <router-link class="fx-1 fx fx-justify-center" to="/newBuilding">
       <div>
         <div class="icon-box fx fx-justify-center fx-align-center">
           <i class="nav-icon iconfont icon-tabhome"></i>
         </div>
         <div class="nav-txt">新房楼盘</div>
       </div>
-    </a>
-    <a class="fx-1 fx fx-justify-center" href="#">
+    </router-link>
+    <router-link class="fx-1 fx fx-justify-center" to="/group">
       <div>
         <div class="icon-box fx fx-justify-center fx-align-center">
           <i class="nav-icon iconfont icon-tabhome"></i>
         </div>
-        <div class="nav-txt">新房楼盘</div>
+        <div class="nav-txt">优惠团购</div>
       </div>
-    </a>
-    <a class="fx-1 fx fx-justify-center" href="#">
+    </router-link>
+    <router-link class="fx-1 fx fx-justify-center" to="/kanfangtuan">
       <div>
         <div class="icon-box fx fx-justify-center fx-align-center">
           <i class="nav-icon iconfont icon-tabhome"></i>
         </div>
-        <div class="nav-txt">新房楼盘</div>
+        <div class="nav-txt">看房团</div>
       </div>
-    </a>
+    </router-link>
   </div>
 </template>
 <script>

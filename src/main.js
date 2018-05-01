@@ -8,6 +8,7 @@ import Directive from './directive'; //自定义指令
 import './assets/lib/iconfont.css';
 import './assets/public.scss';
 import './assets/base.scss';
+import 'c-swipe/dist/swipe.css';
 
 Vue.use(Store);
 Vue.use(Axios, {mock: false});

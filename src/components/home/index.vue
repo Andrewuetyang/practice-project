@@ -25,10 +25,10 @@
       </div>
     </section>
     <!-- 楼盘列表 -->
-    <section class="mt-12 pl-8 pr-8 bgc-w bd-t bd-b">
+    <section class="mt-12 mb-12 pl-8 pr-8 bgc-w bd-t bd-b">
       <h3 class="c-3 f-16 bd-b" style="line-height: 55px;">推荐楼盘</h3>
       <ul class="building-list">
-        <li class="list-li">
+        <li class="list-li bd-b">
           <a class="list-li-a" href="#">
             <div class="img-box mr-12">
               <img class="img-full" src="http://www.hjw68.com/wp-content/uploads/2017/09/实景图-1-333x235.jpg" alt="">
@@ -50,14 +50,13 @@
         </li>
       </ul>
     </section>
-    <footer class="mt-12">
-
-    </footer>
+    <c-footer></c-footer>
   </div>
 </template>
 <script>
 import headNav from '@/components/common/headNav.vue'
 import bodyNav from '@/components/common/bodyNav.vue'
+import cFooter from '@/components/common/footer.vue'
 import banner from '@/assets/imgs/banner.jpg'
 import sprite_newh from '@/assets/imgs/sprite_newh.svg'
 export default {
@@ -76,17 +75,12 @@ export default {
   
   components: {
     headNav,
-    bodyNav
+    bodyNav,
+    cFooter
   },
 }
 </script>
 <style lang="scss" scoped>
-.f-15 {
-  font-size: 15px;
-}
-.mb-6 {
-  margin-bottom: 6px;
-}
 .banner-box {
   width: 100%;
   height: 180px;
@@ -156,14 +150,5 @@ export default {
       }
     }
   }
-}
-
-.tag {
-  font-size: 12px;
-  padding: 2px 4px;
-  line-height: 1;
-  margin-right: 5px;
-  background-color: #f4f7f9;
-  color: #849aae;
 }
 </style>

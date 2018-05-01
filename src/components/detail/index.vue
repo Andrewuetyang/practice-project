@@ -1,0 +1,424 @@
+<template>
+  <div class="pos-r" style="height: 100%; overflow: scroll;">
+    <head-nav></head-nav>
+    <div class="mb-12 pos-r" style="height: 200px;">
+      <swipe v-model="index" :pagination="false" :loop="false" style="height: 100%;">
+        <swipe-item style="height: 100%;">
+          <img class="img-full" src="http://www.hjw68.com/wp-content/uploads/2017/09/样板间1-1-345x230.jpg" alt="">
+        </swipe-item>
+        <swipe-item style="height: 100%;">
+          <img class="img-full" src="http://www.hjw68.com/wp-content/uploads/2017/09/样板间1-1-345x230.jpg" alt="">
+        </swipe-item>
+        <swipe-item style="height: 100%;">
+          <img class="img-full" src="http://www.hjw68.com/wp-content/uploads/2017/09/样板间1-1-345x230.jpg" alt="">
+        </swipe-item>
+      </swipe>
+      <div class="pagination">{{pagination}}</div>
+    </div>
+    <!-- 基本信息 -->
+    <div class="base-info bd-b bd-t mb-12">
+      <div>
+        <div class="lh-24 bold mb-8">
+          <span class="f-17">富力南昆山</span>
+          <span class="f-14 c-6">别墅-在售</span>
+        </div>
+        <div class="fx fx-justify-between fx-align-center f-20">
+          <span class="f-16 bold c-red">均价8500元/平</span>
+          <span class="f-14" style="color: #939fa1;">占地面积：17890平米</span>
+        </div>
+        <!-- 暂时从网站上没看到显示，但是html中有这个节点 -->
+        <div class="tag-box"></div>
+      </div>
+      <ul class="mt-15">
+        <li class="bd-t lh-44 c-6 pos-r arrow-right pt-10 pr-15 pb-10">
+          <a class="li-base text-overflow fx fx-align-center" href="#">
+            <i class="icon iconfont icon-location mr-8 lh-1"></i>
+            <span>广东南昆山旅游度假区（广河高速永汉出口处）</span>
+          </a>
+        </li>
+        <li class="bd-t lh-44 c-6 pos-r arrow-right pt-10 pr-15 pb-10">
+          <a class="li-base text-overflow fx fx-align-center" href="#">
+            <i class="icon iconfont icon-location mr-8 lh-1"></i>
+            <span>广东南昆山旅游度假区（广河高速永汉出口处）</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- 户型介绍 -->
+    <div class="bgc-w mb-12 pl-8 pr-8" @click="isPopupImgsShow = true">
+      <div class="lh-55 f-16">
+        <span class="c-3 bold">户型介绍</span>
+        <span class="c-9">(3种)</span>
+      </div>
+      <ul>
+        <li class="bd-t pt-20 pb-20 fx">
+          <div class="mr-12 fx fx-align-center" style="width: 108px;">
+            <img class="img-full" src="http://www.hjw68.com/wp-content/uploads/2017/09/实景图-1-333x235.jpg" alt="">
+          </div>
+          <div class="desc-box">
+            <div class="f-16 lh-20 mb-6">
+              <span>3室2厅1卫 建面 约90平 - </span>
+              <span class="c-green">在售</span>
+            </div>
+            <div class="c-8 f-12 lh-14 mb-6">3室2厅</div>
+            <div class="c-red f-13 bold lh-14 mb-8">参考价</div>
+            <div class="c-red f-13 bold lh-14 mb-8">参考首付</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- 楼盘信息 -->
+    <div class="box-base mb-12 bd-t bd-b">
+      <div class="info-head">楼盘信息</div>
+      <ul>
+        <li class="info-list-item bd-t fx">
+          <div class="c-9" style="width: 80px;">楼盘别名</div>
+          <div class="">富力南昆山温泉养生谷</div>
+        </li>
+      </ul>
+    </div>
+    <!-- 楼盘简介 -->
+    <div class="box-base mb-12 bd-t bd-b">
+      <div class="info-head bd-b">楼盘简介</div>
+      <div class="f-13 pt-16 pb-16" style="line-height: 1.9;">富力南昆山温泉养生谷座落于4A风景区南昆山生态旅游区，周边养生度假资源丰富，包括龙门铁泉、温泉大观园、香溪堡、蓝田瑶族风情园等。 项目临近广河高速永汉出口，距离广州珠江新城CBD仅45车程，与自然瞬间轻松转换，让南昆山成为广州人的后花园。 富力南昆山温泉养生谷总占地面积为3000亩。首期推出产品为户型面积174—328㎡的私家温泉度假屋，项目共309套。包含联排、双拼、独栋。户户温泉入户 。 首期推出部分绿化率40.5%，分为A、B、D三个区。一期是项目景观、区位、距离项目星级配套区近、性价比区域。</div>
+    </div>
+    <!-- 最新开盘 -->
+    <div class="box-base mb-12 bd-t bd-b">
+      <div class="info-head">最新开盘</div>
+      <div class="pb-20">
+        <ul class="b-list">
+          <li class="b-list-item">
+            <div class="item-pic" :style="{backgroundImage: imgSrc}"></div>
+            <div class="c-red pt-12 lh-1 f-13">12500元/平</div>
+          </li>
+          <li class="b-list-item">
+            <div class="item-pic" :style="{backgroundImage: imgSrc}"></div>
+            <div class="c-red pt-12 lh-1 f-13">12500元/平</div>
+          </li>
+          <li class="b-list-item">
+            <div class="item-pic" :style="{backgroundImage: imgSrc}"></div>
+            <div class="c-red pt-12 lh-1 f-13">12500元/平</div>
+          </li>
+          <li class="b-list-item">
+            <div class="item-pic" :style="{backgroundImage: imgSrc}"></div>
+            <div class="c-red pt-12 lh-1 f-13">12500元/平</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- 提示 -->
+    <div class="declear">
+      <span class="icon-declear"></span>
+      <div class="declear-txt">以上信息仅供参考，最终结果以开发商公布以及政府部门登记备案为准，谢谢！</div>
+    </div>
+    <!-- placeholder -->
+    <div style="height: 68px;"></div>
+    <!-- 底部功能区 -->
+    <div class="bottom-section fx fx-justify-between">
+      <div class="link-item">
+        <i class="icon-base follow-icon"></i>
+        <span class="f-12">咨询</span>
+      </div>
+      <div class="link-item">
+        <i class="icon-base reserve-icon"></i>
+        <span class="f-12">预约</span>
+      </div>
+      <div class="btn-base c-btn btn-fbk-green" style="width: 70%;">联系售楼处</div>
+    </div>
+    <!-- 图片弹窗展示区域 -->
+    <!-- 这里需要用v-if， 虽然v-show渲染更节省性能，但是swipe组件不支持 -->
+    <div class="popup-imgs" v-if="isPopupImgsShow" @click="isPopupImgsShow = false">
+      <div class="pos-r" style="width: 100%; height: 250px;">
+        <swipe style="width: 100%; height: 100%;" v-model="popupImgsIndex" :pagination="false" :loop="false">
+          <swipe-item>
+            <img class="img-full" src="http://www.hjw68.com/wp-content/uploads/2017/09/样板间1-1-345x230.jpg" alt="">
+          </swipe-item>
+          <swipe-item>
+            <img class="img-full" src="http://www.hjw68.com/wp-content/uploads/2017/09/样板间1-1-345x230.jpg" alt="">
+          </swipe-item>
+          <swipe-item>
+            <img class="img-full" src="http://www.hjw68.com/wp-content/uploads/2017/09/样板间1-1-345x230.jpg" alt="">
+          </swipe-item>
+        </swipe>
+        <div class="popup-close" @click.stop="isPopupImgsShow = false">
+          <div class="icon-close-base icon-close"></div>
+        </div>
+      </div>
+    </div>
+    <!-- 预约弹窗表单 dev暂时隐藏-->
+    <div class="popup-layer" style="display: none">
+      <div class="popup-content">
+        <div class="popup-close">
+          <i class="icon-close-base icon-close"></i>
+        </div>
+        <h2 class="ta-c">预约看房</h2>
+        <form>
+          <ul>
+            <li class="mt-10 mb-10 fx fx-align-center">
+              <div class="f-13" style="width: 26%;">您的姓名:</div>
+              <input class="fx-1 text-input" type="text">
+            </li>
+            <li class="mt-10 mb-10 fx fx-align-center">
+              <div class="f-13" style="width: 26%;">您的姓名:</div>
+              <input class="fx-1 text-input" type="text">
+            </li>
+            <li class="mt-10 mb-10 fx fx-align-center">
+              <div class="f-13" style="width: 26%;">您的姓名:</div>
+              <input class="fx-1 text-input" type="text">
+            </li>
+          </ul>
+          <div class="f-12" style="color: #f00;">* 温馨提示：联系方式提交后，将会有专业的经纪人联系您，请您耐心等待.</div>
+          <div class="btn-base f-18 lh-38 btn-fbk-green mt-10">提交</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import headNav from '@/components/common/headNav.vue'
+import {Swipe as swipe, SwipeItem as swipeItem} from 'c-swipe'
+export default {
+  data () {
+    return {
+      index: 0,
+      popupImgsIndex: 0,
+      isPopupImgsShow: false,
+      imgSrc: 'url(//www.hjw68.com/wp-content/uploads/2017/11/2-4.png)'
+    }
+  },
+  computed: {
+    pagination () {
+      return `${this.index + 1}/3`
+    }
+  },
+  components: {
+    headNav,
+    swipe,
+    swipeItem
+  }
+}
+</script>
+<style lang="scss" scoped>
+.text-input {
+  padding: 0 8px;
+  height: 31px;
+  border: 1px solid #eee;
+  background-color: #f9f9f9;
+}
+.icon-close-base {
+  display: block;
+  border-radius: 50%;
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 2px;
+    height: 60%;
+    left: 50%;
+    top: 51%;
+    border-radius: 1px;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 2px;
+    height: 60%;
+    left: 50%;
+    top: 51%;
+    border-radius: 1px;
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+}
+
+.popup-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .popup-content {
+    box-sizing: border-box;
+    width: 81.1%;
+    background: #fff;
+    border-radius: 2px;
+    padding: 16px 23px;
+    position: relative;
+    .popup-close {
+      position: absolute;
+      top: 7px;
+      right: 14px;
+      .icon-close {
+        width: 24px;
+        height: 24px;
+        border: 2px solid #a09e9e;
+        &::before {
+          background: #a09e9e;
+        }
+        &::after {
+          background: #a09e9e;
+        }
+      }
+    }
+  }
+}
+.base-info {
+  background: #fff;
+  padding: 20px 8px 0 16px;
+}
+.tag-box {
+  height: 24px;
+}
+.li-base {
+  width: 90%;
+}
+
+.desc-box {
+  flex: 1;
+  line-height: 1;
+  min-width: 0;
+}
+
+.info-list-item {
+  padding: 10px 0;
+  line-height: 21px;
+}
+
+.box-base {
+  padding: 0 15px;
+  background: #fff;
+  overflow: hidden;
+  .info-head {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 55px;
+  }
+}
+
+.b-list {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  font-size: 0;
+  .b-list-item {
+    display: inline-block;
+    user-select: none;
+    margin-right: 10px;
+    .item-pic {
+      width: 140px;
+      height: 78px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+    }
+  }
+}
+
+.declear {
+  margin: 2px 0;
+  position: relative;
+  .icon-declear {
+    position: absolute;
+    top: 1px;
+    left: 20px;
+    width: 11px;
+    height: 12px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAYCAIAAABx3JocAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDozOTg4YmYyMS0xNzc1LTQ2MzgtYjc3My0zYWU3ZjUwOTlkNWUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTFERTQ4MEQ4RUIzMTFFNjk4MkJEMTk1NEY2NzdBRjQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTFERTQ4MEM4RUIzMTFFNjk4MkJEMTk1NEY2NzdBRjQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKE1hY2ludG9zaCkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoyODEzZmVjZC1mY2EzLTQ1NWUtOTRhYi1hMDA5ZGVlNzE2NmIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6Mzk4OGJmMjEtMTc3NS00NjM4LWI3NzMtM2FlN2Y1MDk5ZDVlIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+yWz7TAAAAoJJREFUeNqklEtPIkEUhekG5CFoQIcwCAZCJLBAw4KNK0KMrPmN/AYyITEhbNyhC8OE8IxoAA0Qg4Dh4TAfXUoYaGahZ1Hprqp76tSte480Go00K3h9fW02m+12u9vtvry8vL29SZK0t7e3v79vt9t/KLDZbKsh0khBq9UijLHf789ms/f39z+fkBTIsqzVasVotVp/KnC5XGazWUqn0/V6XYRBeXBwcHh4yJkWi8VoNLIDlsFggLper4e0TqcznU51nwgEArpKpYKK4+Njv9/vdrsJE0eJkxnhhRQiIY3DIELv4+MjY7FY1DHFpkQiodfrYRUxa9AqYIP43d3d5QrBYDCVSi0UCQqTyaQanMvl5vN5LBbbZNzZ2eGbcBltmu34rUB1SdyUcJmfpcJNTCYTpG5b5eKMsuDTfAkiUNZ8G9+iIBcfFOT8axTiKWTxMKI0VW/7n0yJgtAJFdTvWvMI+Hy+bRqpaVQYDAYdXcAPPaZKcXFxsY3i6emJJZpYFpHValV1H1XLGapLtVqNkX6VvV4vX/f39/TM5r5fCjbnsZJSqcQHnSqHQiHahsRks1kysraVGRxks2Svrq4YPR6P0+mUhsMh/Z7JZMiNw+G4vLzEnZa7WRWtuTpDfKPRwBaSySQ+sHAtJMCCCtqB9Jyfn5+cnKi+Jfe9vr7GL4jHH46OjhaeIrwTFjIMC9bEMgqj0SgnLIO5zs3NTblcxk2xz3g8ziot/+Gdy1JD5N3d3e3tLa8FEaZyenrKOfR7oVAgmAqMRCJnZ2fY4lKmtObg4/GYbOfzeQ7EBKgckT+AOSINCWLyHwffrHyInp+fUfTw8MAMaQ+Hw5idcNa1/X8FGAAv9YdDWAFr4AAAAABJRU5ErkJggg==);
+ 
+  }
+  .declear-txt {
+    padding: 0 20px 0 36px;
+    font-size: 12px;
+    color: #6b7072;
+    line-height: 1.4;
+  }
+}
+
+.bottom-section {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 99;
+  box-sizing: border-box;
+  background: #fff;
+  width: 100%;
+  padding: 8px 8px 8px 16px;
+  box-shadow:#ddd 0 -1px 2px;
+  .link-item {
+    width: 32px;
+    font-size: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .follow-icon {
+      background: url(../../assets/imgs/icon_detail_spirit.svg) no-repeat 0 -117px;
+    }
+    .reserve-icon {
+      background: url(../../assets/imgs/icon_detail_spirit.svg) no-repeat 0 -50px;
+    }
+    .icon-base {
+      display: inline-block;
+      width: 20px;
+      height: 23px;
+      background-size: 32px 872px;
+    }
+  }
+  .c-btn {
+    line-height: 44px;
+    font-size: 16px;
+  }
+}
+
+.pagination {
+  position: absolute;
+  padding: 1px 8px;
+  line-height: 18px;
+  background: rgba(0, 0, 0, .5);
+  border-radius: 8px;
+  text-align: center;
+  color: #fff;
+  font-size: 13px;
+  right: 10px;
+  bottom: 6px;
+}
+
+.popup-imgs {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  .popup-close {
+    position: absolute;
+    top: -46px;
+    right: 18px;
+    .icon-close {
+      width: 32px;
+      height: 32px;
+      border: 2px solid #fff;
+      &::before {
+        background: #fff;
+      }
+      &::after {
+        background: #fff;
+      }
+    }
+  }
+}
+
+</style>
+
+
