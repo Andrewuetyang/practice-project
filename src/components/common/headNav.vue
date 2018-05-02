@@ -1,31 +1,31 @@
 <template>
   <section class="head-nav bd-b fx fx-justify-between fx-align-center">
     <a class="go-back" :style="goBackStyle" href="javascript:history.back();"></a>
-    <img :src="logoSrc" height="30" alt="" @click="linkHome">
-    <i class="icon iconfont icon-caidan menu"></i>
+    <img :src="logoSrc" height="30" alt="" @click="linkTo(1)">
+    <i class="icon iconfont icon-caidan menu" @click="isShowMenu = true"></i>
     <!-- menu弹层 暂时隐藏 -->
-    <!-- <section class="menu-layer">
+    <section class="menu-layer" @click="isShowMenu = false" v-show="isShowMenu">
       <div class="menu-box bd-l">
         <ul>
-          <li class="bd-b pl-32 lh-40 text-overflow">
+          <li class="bd-b pl-32 lh-40 text-overflow" @click="linkTo(1)">
             <i class="icon iconfont icon-tabhome c-green mr-10"></i>
             <span>首页</span>
           </li>
-          <li class="bd-b pl-32 lh-40 text-overflow">
+          <li class="bd-b pl-32 lh-40 text-overflow" @click="linkTo(2)">
             <i class="icon iconfont icon-xinfangloupan1 c-green mr-10"></i>
             <span>新房楼盘</span>
           </li>
-          <li class="bd-b pl-32 lh-40 text-overflow">
+          <li class="bd-b pl-32 lh-40 text-overflow" @click="linkTo(3)">
             <i class="icon iconfont icon-bao c-green mr-10"></i>
             <span>优惠团购</span>
           </li>
-          <li class="bd-b pl-32 lh-40 text-overflow">
+          <li class="bd-b pl-32 lh-40 text-overflow" @click="linkTo(4)">
             <i class="icon iconfont icon-ziyuan c-green mr-10"></i>
             <span>看房团</span>
           </li>
         </ul>
       </div>
-    </section> -->
+    </section>
   </section>
 </template>
 <script>
@@ -35,6 +35,7 @@ export default {
   data () {
     return {
       logoSrc: logo,
+      isShowMenu: false,
       goBackStyle: {
         background: `url(${sprite_newh}) no-repeat`,
         backgroundSize: 'cover',
@@ -43,9 +44,23 @@ export default {
     }
   },
   methods: {
-    linkHome () {
-      this.$router.replace({path: '/'})
-    }
+    linkTo (to) {
+      switch (to) {
+        case 1: // 首页
+          this.$router.replace({path: '/'})
+          break
+        case 2: // 新房楼盘
+          this.$router.push({path: '/newBuilding'})
+          break
+        case 3: // 优惠团购
+          this.$router.push({path: '/group'})
+          break
+        case 4: // 看房团
+          this.$router.push({path: '/kanfangtuan'})
+          break
+      }
+      
+    },
   }
   
 }

@@ -53,7 +53,7 @@ html {
 }
 
 body {
-  font-family: "Tahoma", "Hiragino Sans GB", "Source Han Sans CN", arial, sans-serif;
+  font-family: "Microsoft YaHei", "Tahoma", "Hiragino Sans GB", "Source Han Sans CN", arial, sans-serif;
   font-size: 14px;
   line-height: 1.5;
   color: #333333;
@@ -198,6 +198,10 @@ body {
 //flex布局
 .fx {
   display: flex;
+}
+
+.inline-fx {
+  display: inline-flex;
 }
 
 .fx-v {

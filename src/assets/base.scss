@@ -140,6 +140,9 @@ input::-webkit-input-placeholder, input::-moz-placeholder, input:-moz-placeholde
 .c-red {
   color: #f55741 !important;
 }
+.c-dark-red {
+  color: #db4c3f !important;
+}
 .c-yellow {
   color: #e6b322 !important;
 }
@@ -192,17 +195,31 @@ input::-webkit-input-placeholder, input::-moz-placeholder, input:-moz-placeholde
 
 .arrow-right {
   position: relative;
+  top: 3px;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  transform: translateY(-50%) rotate(45deg);
+  border-right: 1px solid #9c9fa1;
+  border-top: 1px solid #9c9fa1;
 }
 
-.arrow-right:after {
+.arrow-right-green {
+  border-right: 1px solid rgb(24, 161, 102);
+  border-top: 1px solid rgb(24, 161, 102);
+}
+
+.cell-arrow-right {
+  position: relative;
+}
+
+.cell-arrow-right:after {
   position: absolute;
   content: " ";
   width: 8px;
   height: 8px;
   border-right: 1px solid #9c9fa1;
   border-top: 1px solid #9c9fa1;
-  -webkit-transform: translateY(-50%) rotate(45deg);
-  -ms-transform: translateY(-50%) rotate(45deg);
   transform: translateY(-50%) rotate(45deg);
   right: 19px;
   top: 50%;

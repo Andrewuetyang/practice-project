@@ -23,20 +23,24 @@
           <span class="f-14 c-6">别墅-在售</span>
         </div>
         <div class="fx fx-justify-between fx-align-center f-20">
-          <span class="f-16 bold c-red">均价8500元/平</span>
+          <span class="f-16 bold c-red">均价<span class="f-20">8500</span>元/平</span>
           <span class="f-14" style="color: #939fa1;">占地面积：17890平米</span>
         </div>
-        <!-- 暂时从网站上没看到显示，但是html中有这个节点 -->
-        <div class="tag-box"></div>
+        <!-- 标签属性 -->
+        <div class="tag-box mt-8">
+          <span class="tag-detail">在售</span>
+          <span class="tag-detail">在售</span>
+          <span class="tag-detail">在售</span>
+        </div>
       </div>
       <ul class="mt-15">
-        <li class="bd-t lh-44 c-6 pos-r arrow-right pt-10 pr-15 pb-10">
+        <li class="bd-t lh-44 c-6 pos-r cell-arrow-right pt-10 pr-15 pb-10">
           <a class="li-base text-overflow fx fx-align-center" href="#">
             <i class="icon iconfont icon-location mr-8 lh-1"></i>
             <span>广东南昆山旅游度假区（广河高速永汉出口处）</span>
           </a>
         </li>
-        <li class="bd-t lh-44 c-6 pos-r arrow-right pt-10 pr-15 pb-10">
+        <li class="bd-t lh-44 c-6 pos-r cell-arrow-right pt-10 pr-15 pb-10">
           <a class="li-base text-overflow fx fx-align-center" href="#">
             <i class="icon iconfont icon-location mr-8 lh-1"></i>
             <span>广东南昆山旅游度假区（广河高速永汉出口处）</span>
@@ -272,9 +276,6 @@ export default {
   background: #fff;
   padding: 20px 8px 0 16px;
 }
-.tag-box {
-  height: 24px;
-}
 .li-base {
   width: 90%;
 }
@@ -360,10 +361,10 @@ export default {
     align-items: center;
     justify-content: center;
     .follow-icon {
-      background: url(../../assets/imgs/icon_detail_spirit.svg) no-repeat 0 -117px;
+      background: url(../assets/imgs/icon_detail_spirit.svg) no-repeat 0 -117px;
     }
     .reserve-icon {
-      background: url(../../assets/imgs/icon_detail_spirit.svg) no-repeat 0 -50px;
+      background: url(../assets/imgs/icon_detail_spirit.svg) no-repeat 0 -50px;
     }
     .icon-base {
       display: inline-block;
@@ -419,6 +420,19 @@ export default {
   }
 }
 
+.tag-box {
+  display: flex;
+  .tag-detail {
+    line-height: 1;
+    vertical-align: top;
+    padding: 4px 9px;
+    border: 1px solid #e1e1e1;
+    margin-right: 6px;
+    border-radius: 20px;
+    background-color: #fff;
+    color: #999;
+    font-size: 13px;
+  }
+}
+
 </style>
-
-
