@@ -11,7 +11,7 @@ import './assets/base.scss';
 import 'c-swipe/dist/swipe.css';
 
 Vue.use(Store);
-Vue.use(Axios, {mock: true});
+Vue.use(Axios, {mock: false});
 Vue.use(Router);
 Vue.use(Directive);
 

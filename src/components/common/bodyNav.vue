@@ -1,6 +1,6 @@
 <template>
   <div class="body-nav fx bd-b">
-    <router-link class="fx-1 fx fx-justify-center" to="/newBuilding">
+    <router-link class="fx-1 fx fx-justify-center" to="/list">
       <div>
         <div class="icon-box fx fx-justify-center fx-align-center">
           <i class="nav-icon iconfont icon-tabhome"></i>

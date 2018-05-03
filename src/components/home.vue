@@ -85,22 +85,19 @@ export default {
   },
 
   created () {
-    this.fetchData().then(res => {
-      this.houseList = res.data.data
-    })
+    // this.fetchData().then(res => {
+    //   this.houseList = res.data.data
+    // }).catch(err => {
+
+    // })
   },
 
   methods: {
     fetchData () {
       return new Promise((resolve, reject) => {
-        this.$axios.post('/api/houses/index', {
-          params: {
-            city_id: 1,
-            keywords: ''
-          }
-        }).then(res => {
-          if (res.data.code != 200) {
-            return;
+        this.$axios.post('/api/houses/index').then(res => {
+          if (res.data.code != 1) {
+            return reject(res);
           }
           resolve(res)
         }).catch(err => {
@@ -164,14 +161,14 @@ export default {
         }
         .icon-search {
           display: inline-block;
-          width: 20px;
-          height: 20px;
+          width: 22px;
+          height: 22px;
           position: absolute;
           top: 7px;
           right: 7px;
           background: url(../assets/imgs/sprite_newh.svg) no-repeat;
           background-size: cover;
-          background-position: 0 -80px;
+          background-position: 0 -99px;
         }
       }
     }

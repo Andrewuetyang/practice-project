@@ -101,8 +101,8 @@ module.exports = {
     public:'localhost:8080',
     disableHostCheck: true,
     proxy: {
-      '/index.php': {
-        target:'',
+      '/api': {
+        target:'http://www.marksit.space:81',
         changeOrigin: true
       }
     }

@@ -14,19 +14,19 @@
     <!-- 楼盘列表 -->
     <section class="mt-12 mb-12 pl-8 pr-8 bgc-w bd-t bd-b">
       <ul class="c-3 f-14 bold bd-b fx filter-list">
-        <li class="bd-r fx fx-align-center fx-justify-center fx-1">
+        <li @click="isShowFilterPopup = true" class="bd-r fx fx-align-center fx-justify-center fx-1">
           <span>区域</span>
           <i class="icon-sprite" :style="triangleStyle"></i>
         </li>
-        <li class="bd-r fx fx-align-center fx-justify-center fx fx-1">
+        <li @click="isShowFilterPopup = true" class="bd-r fx fx-align-center fx-justify-center fx fx-1">
           <span>售价</span>
           <i class="icon-sprite" :style="triangleStyle"></i>
         </li>
-        <li class="bd-r fx fx-align-center fx-justify-center fx-1">
+        <li @click="isShowFilterPopup = true" class="bd-r fx fx-align-center fx-justify-center fx-1">
           <span>房型</span>
           <i class="icon-sprite" :style="triangleStyle"></i>
         </li>
-        <li class="fx fx-align-center fx-justify-center fx-1">
+        <li @click="isShowFilterPopup = true" class="fx fx-align-center fx-justify-center fx-1">
           <span>状态</span>
           <i class="icon-sprite" :style="triangleStyle"></i>
         </li>
@@ -58,31 +58,41 @@
       <p class="c-8 f-14 ta-c lh-38">已经是最后一条数据了！</p>
     </section>
     <!-- 筛选条件 暂时先隐藏 -->
-    <!-- <section class="filter-popup">
-      <ul class="c-3 f-14 bold bd-b fx filter-list">
-        <li class="bd-r fx fx-align-center fx-justify-center fx-1">
-          <span>区域</span>
-          <i class="icon-sprite" :style="triangleStyle"></i>
-        </li>
-        <li class="bd-r fx fx-align-center fx-justify-center fx fx-1">
-          <span>售价</span>
-          <i class="icon-sprite" :style="triangleStyle"></i>
-        </li>
-        <li class="bd-r fx fx-align-center fx-justify-center fx-1">
-          <span>房型</span>
-          <i class="icon-sprite" :style="triangleStyle"></i>
-        </li>
-        <li class="fx fx-align-center fx-justify-center fx-1">
-          <span>状态</span>
-          <i class="icon-sprite" :style="triangleStyle"></i>
-        </li>
-      </ul>
-      <div class="filter-item-list">
-        <ul>
-          <li class="lh-40 bd-b c-0">不限</li>
+    <section class="filter-popup" v-if="isShowFilterPopup">
+      <div class="empty-layer"  @click.stop="isShowFilterPopup=false"></div>
+      <div class="filter-content">
+        <ul class="c-3 f-14 bold bd-b fx filter-list">
+          <li class="bd-r fx fx-align-center fx-justify-center fx-1">
+            <span>区域</span>
+            <i class="icon-sprite" :style="triangleStyle"></i>
+          </li>
+          <li class="bd-r fx fx-align-center fx-justify-center fx fx-1">
+            <span>售价</span>
+            <i class="icon-sprite" :style="triangleStyle"></i>
+          </li>
+          <li class="bd-r fx fx-align-center fx-justify-center fx-1">
+            <span>房型</span>
+            <i class="icon-sprite" :style="triangleStyle"></i>
+          </li>
+          <li class="fx fx-align-center fx-justify-center fx-1">
+            <span>状态</span>
+            <i class="icon-sprite" :style="triangleStyle"></i>
+          </li>
         </ul>
+        <div class="filter-item-list">
+          <ul>
+            <li class="lh-40 bd-b c-0">不限</li>
+            <li class="lh-40 bd-b c-0">不限</li>
+            <li class="lh-40 bd-b c-0">不限</li>
+            <li class="lh-40 bd-b c-0">不限</li>
+            <li class="lh-40 bd-b c-0">不限</li>
+            <li class="lh-40 bd-b c-0">不限</li>
+            <li class="lh-40 bd-b c-0">不限</li>
+            <li class="lh-40 bd-b c-0">不限</li>
+          </ul>
+        </div>
       </div>
-    </section> -->
+    </section>
     <c-footer></c-footer>
   </div>  
 </template>
@@ -103,6 +113,7 @@ export default {
         backgroundSize: 'cover',
         backgroundPosition: '0 -30px'
       },
+      isShowFilterPopup: false
     }
   },
   components: {
@@ -171,8 +182,20 @@ export default {
   top: 0;
   z-index: 999;
   width: 100%;
-  background: #fff;
+  height: 100%;
+  .empty-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .filter-content {
+    position: relative;
+    background: #fff;
+  }
 }
+
 .filter-item-list {
   max-height: 410px;
   padding-left: 19px;

@@ -5,6 +5,10 @@ import list from '../components/list.vue'
 import kanfangtuan from '../components/kanfangtuan.vue'
 import detail from '../components/detail.vue'
 
+// 按需加载模块
+// const setting = resolve => {
+//   require.ensure([], () => { resolve(require('../components/account/setting.vue')) }, 'inside')
+// }
 
 //前端路由
 export default [

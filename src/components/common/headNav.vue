@@ -1,6 +1,6 @@
 <template>
   <section class="head-nav bd-b fx fx-justify-between fx-align-center">
-    <a class="go-back" :style="goBackStyle" href="javascript:history.back();"></a>
+    <a class="go-back" href="javascript:history.back();"></a>
     <img :src="logoSrc" height="30" alt="" @click="linkTo(1)">
     <i class="icon iconfont icon-caidan menu" @click="isShowMenu = true"></i>
     <!-- menu弹层 暂时隐藏 -->
@@ -30,17 +30,11 @@
 </template>
 <script>
 import logo from '@/assets/imgs/logo.jpg'
-import sprite_newh from '@/assets/imgs/sprite_newh.svg'
 export default {
   data () {
     return {
       logoSrc: logo,
       isShowMenu: false,
-      goBackStyle: {
-        background: `url(${sprite_newh}) no-repeat`,
-        backgroundSize: 'cover',
-        backgroundPosition: '0 -407px'
-      }
     }
   },
   methods: {
@@ -50,7 +44,7 @@ export default {
           this.$router.replace({path: '/'})
           break
         case 2: // 新房楼盘
-          this.$router.push({path: '/newBuilding'})
+          this.$router.push({path: '/list'})
           break
         case 3: // 优惠团购
           this.$router.push({path: '/group'})
@@ -75,6 +69,9 @@ export default {
       display: inline-block;
       width: 24px;
       height: 24px;
+      background: url(../../assets/imgs/sprite_newh.svg) no-repeat;
+      background-size: cover;
+      background-position: 0 -409px;
     }
     .menu {
       color: #00ae66;
