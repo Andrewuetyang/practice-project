@@ -7,7 +7,7 @@
       <div class="fx bgc-w brs-2 search-box">
         <input class="fx-1 pl-8" type="text" placeholder="请输入楼盘名和区域">
         <div class="search-btn fx fx-align-center fx-justify-center">
-          <i class="icon-sprite" :style="searchStyle"></i>
+          <i class="icon-sprite icon-sprite-search"></i>
         </div>
       </div>
     </div>
@@ -16,19 +16,19 @@
       <ul class="c-3 f-14 bold bd-b fx filter-list">
         <li @click="isShowFilterPopup = true" class="bd-r fx fx-align-center fx-justify-center fx-1">
           <span>区域</span>
-          <i class="icon-sprite" :style="triangleStyle"></i>
+          <i class="icon-sprite icon-sprite-triangle"></i>
         </li>
         <li @click="isShowFilterPopup = true" class="bd-r fx fx-align-center fx-justify-center fx fx-1">
           <span>售价</span>
-          <i class="icon-sprite" :style="triangleStyle"></i>
+          <i class="icon-sprite icon-sprite-triangle"></i>
         </li>
         <li @click="isShowFilterPopup = true" class="bd-r fx fx-align-center fx-justify-center fx-1">
           <span>房型</span>
-          <i class="icon-sprite" :style="triangleStyle"></i>
+          <i class="icon-sprite icon-sprite-triangle"></i>
         </li>
         <li @click="isShowFilterPopup = true" class="fx fx-align-center fx-justify-center fx-1">
           <span>状态</span>
-          <i class="icon-sprite" :style="triangleStyle"></i>
+          <i class="icon-sprite icon-sprite-triangle"></i>
         </li>
       </ul>
       <p class="no-data bd-b">没有找到相关数据，换个搜索条件试试</p>
@@ -64,19 +64,19 @@
         <ul class="c-3 f-14 bold bd-b fx filter-list">
           <li class="bd-r fx fx-align-center fx-justify-center fx-1">
             <span>区域</span>
-            <i class="icon-sprite" :style="triangleStyle"></i>
+            <i class="icon-sprite icon-sprite-triangle"></i>
           </li>
           <li class="bd-r fx fx-align-center fx-justify-center fx fx-1">
             <span>售价</span>
-            <i class="icon-sprite" :style="triangleStyle"></i>
+            <i class="icon-sprite icon-sprite-triangle"></i>
           </li>
           <li class="bd-r fx fx-align-center fx-justify-center fx-1">
             <span>房型</span>
-            <i class="icon-sprite" :style="triangleStyle"></i>
+            <i class="icon-sprite icon-sprite-triangle"></i>
           </li>
           <li class="fx fx-align-center fx-justify-center fx-1">
             <span>状态</span>
-            <i class="icon-sprite" :style="triangleStyle"></i>
+            <i class="icon-sprite icon-sprite-triangle"></i>
           </li>
         </ul>
         <div class="filter-item-list">
@@ -103,22 +103,35 @@ import sprite_newh from '@/assets/imgs/sprite_newh.svg'
 export default {
   data () {
     return {
-      searchStyle: {
-        background: `url(${sprite_newh}) no-repeat`,
-        backgroundSize: 'cover',
-        backgroundPosition: '0 -215px'
-      },
-      triangleStyle: {
-        background: `url(${sprite_newh}) no-repeat`,
-        backgroundSize: 'cover',
-        backgroundPosition: '0 -30px'
-      },
-      isShowFilterPopup: false
+      isShowFilterPopup: false,
+      houseList: []
     }
   },
   components: {
     headNav,
     cFooter
+  },
+  created () {
+    this.fetchData().then(res => {
+      console.log(res,' 333')
+      this.houseList = res.data.data
+    }).catch(err => {
+      console.log(err,'444');
+    })
+  },
+  methods: {
+    fetchData () {
+      return new Promise((resolve, reject) => {
+        this.$axios.get('/api/houses/index').then(res => {
+          if (res.data.code != 1) {
+            return reject(res);
+          }
+          resolve(res)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
   }
 }
 </script>
@@ -132,6 +145,15 @@ export default {
   display: inline-block;
   width: 20px;
   height: 20px;
+  background-image: url(../assets/imgs/sprite_newh.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.icon-sprite-search {
+  background-position: 0 -215px;
+}
+.icon-sprite-triangle {
+  background-position: 0 -30px;
 }
 .search-box {
   height: 41px;
