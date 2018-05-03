@@ -3,7 +3,7 @@ var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 var ROOT_PATH = path.resolve(__dirname)
-var DIST_PATH = path.resolve(ROOT_PATH, 'dist/www_m')
+var DIST_PATH = path.resolve(ROOT_PATH, 'dist')
 var PUBLIC_PATH = process.env.NODE_ENV === 'production'?'./':'/'
 
 module.exports = {
