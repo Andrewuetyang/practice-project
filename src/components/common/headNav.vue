@@ -71,7 +71,7 @@ export default {
       height: 24px;
       background: url(../../assets/imgs/sprite_newh.svg) no-repeat;
       background-size: cover;
-      background-position: 0 -818px;
+      background-position: 0 -409px;
     }
     .menu {
       color: #00ae66;
