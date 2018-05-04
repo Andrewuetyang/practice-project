@@ -2,7 +2,7 @@ export default {
   methods: {
     fetchData (url) {
       return new Promise((resolve, reject) => {
-        this.$jsonp(url, (err, res) => {
+        this.$jsonp(this.$config.appUrl + url, (err, res) => {
           if (err) {
             alert(err)
             return reject(err)
