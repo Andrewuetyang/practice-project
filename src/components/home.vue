@@ -158,7 +158,7 @@ export default {
           right: 7px;
           background: url(../assets/imgs/sprite_newh.svg) no-repeat;
           background-size: cover;
-          background-position: 0 -99px;
+          background-position: 0 -198px;
         }
       }
     }
