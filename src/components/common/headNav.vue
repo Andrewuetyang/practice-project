@@ -70,8 +70,8 @@ export default {
       width: 24px;
       height: 24px;
       background: url(../../assets/imgs/sprite_newh.svg) no-repeat;
-      background-size: cover;
-      background-position: 0 -409px;
+      background-size: 24px 765px;
+      background-position: 0 -542px;
     }
     .menu {
       color: #00ae66;

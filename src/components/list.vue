@@ -147,13 +147,14 @@ export default {
   height: 20px;
   background-image: url(../assets/imgs/sprite_newh.svg);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 20px 637px;
 }
 .icon-sprite-search {
-  background-position: 0 -215px;
+  background-position: 0 -348px;
 }
 .icon-sprite-triangle {
-  background-position: 0 -30px;
+  transform: scale(0.6);
+  background-position: 0 -59px;
 }
 .search-box {
   height: 41px;
