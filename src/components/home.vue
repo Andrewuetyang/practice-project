@@ -87,11 +87,7 @@ export default {
   },
 
   created () {
-    // this.fetchData().then(res => {
-    //   this.houseList = res.data.data
-    // }).catch(err => {
-    //   console.log(err, 'err');
-    // })
+    
   },
 
   methods: {

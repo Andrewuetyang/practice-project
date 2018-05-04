@@ -168,6 +168,15 @@ input::-webkit-input-placeholder, input::-moz-placeholder, input:-moz-placeholde
 }
 
 /* 业务常用样式 */
+.full-box {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+.touch-scrolling {
+  -webkit-overflow-scrolling: touch;
+}
 .bs-bb {
   box-sizing: border-box;
 }
