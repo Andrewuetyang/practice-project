@@ -62,11 +62,13 @@
   </div>
 </template>
 <script>
+import fetchMixin from '@/components/common/fetch-mixin.js'
 import headNav from '@/components/common/headNav.vue'
 import bodyNav from '@/components/common/bodyNav.vue'
 import cFooter from '@/components/common/footer.vue'
 import sprite_newh from '@/assets/imgs/sprite_newh.svg'
 export default {
+  mixins: [fetchMixin],
   data () {
     return {
       filterList: [
@@ -88,23 +90,11 @@ export default {
     // this.fetchData().then(res => {
     //   this.houseList = res.data.data
     // }).catch(err => {
-
+    //   console.log(err, 'err');
     // })
   },
 
   methods: {
-    fetchData () {
-      return new Promise((resolve, reject) => {
-        this.$axios.post('/api/houses/index').then(res => {
-          if (res.data.code != 1) {
-            return reject(res);
-          }
-          resolve(res)
-        }).catch(err => {
-          reject(err)
-        })
-      })
-    },
 
     /**
      * 跳转列表页
