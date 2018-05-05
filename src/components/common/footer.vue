@@ -4,14 +4,19 @@
       <li>关于我们</li>
     </ul>
     <div class="footer-info">
-      <p class="lh-15">以上信息仅供参考，最终结果以开发商公布以及政府部门登陆备案为准，谢谢！</p>
-      <p class="f-13">Copyright ⓒ 2010-2017  www.hjw68.com  All rights reserved.  广州市宏居房地产代理有限公司  粤ICP备17095818号-1 技术支持</p>
+      <p v-html="global.aboutUs.content"></p>
+      <!-- <p class="lh-15">以上信息仅供参考，最终结果以开发商公布以及政府部门登陆备案为准，谢谢！</p>
+      <p class="f-13">Copyright ⓒ 2010-2017  www.hjw68.com  All rights reserved.  广州市宏居房地产代理有限公司  粤ICP备17095818号-1 技术支持</p> -->
     </div>
   </div>
 </template>
 <script>
 export default {
-  
+  computed: {
+    global () {
+      return this.$store.state.app.global
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -27,8 +32,9 @@ export default {
   }
   .footer-info {
     text-align: center;
-    line-height: 24px;
+    line-height: 16px;
     font-size: 12px;
+    padding: 10px 0;
   }
   .f-13 {
     font-size: 13px;

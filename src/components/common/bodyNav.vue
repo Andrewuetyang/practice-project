@@ -11,7 +11,7 @@
     <router-link class="fx-1 fx fx-justify-center" to="/group">
       <div>
         <div class="icon-box fx fx-justify-center fx-align-center">
-          <i class="nav-icon iconfont icon-tabhome"></i>
+          <i class="nav-icon iconfont icon-bao"></i>
         </div>
         <div class="nav-txt">优惠团购</div>
       </div>
@@ -19,7 +19,7 @@
     <router-link class="fx-1 fx fx-justify-center" to="/kanfangtuan">
       <div>
         <div class="icon-box fx fx-justify-center fx-align-center">
-          <i class="nav-icon iconfont icon-tabhome"></i>
+          <i class="nav-icon iconfont icon-ziyuan"></i>
         </div>
         <div class="nav-txt">看房团</div>
       </div>

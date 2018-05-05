@@ -23,7 +23,7 @@
             </div>
           </div>
           <div class="fx lh-33">
-            <div class="btn-base f-14 mr-12 bold" style="width: 108px;">看房团报名</div>
+            <div class="btn-base f-14 mr-12 bold" style="width: 108px;" @click="isFormPopupShow = true">看房团报名</div>
             <div class="fx-1 f-15">还剩：-天-时-分-秒</div>
           </div>
           <div class="fx fx-justify-between lh-33">
@@ -63,19 +63,31 @@
         </li>
       </ul>
     </div>
+    
     <hotline-bottom></hotline-bottom>
+
+    <form-popup :is-form-popup-show="isFormPopupShow"
+                :info="formInfo"
+                @close="isFormPopupShow = false"></form-popup>
   </div>
 </template>
 <script>
 import headNav from '@/components/common/headNav.vue'
 import hotlineBottom from '@/components/common/hotlineBottom.vue'
+import formPopup from '@/components/common/formPopup.vue'
 export default {
   data () {
-    return {}
+    return {
+      isFormPopupShow: false,
+      formInfo: {
+        title: '看房团报名'
+      }
+    }
   },
   components: {
     headNav,
-    hotlineBottom
+    hotlineBottom,
+    formPopup
   }
 }
 </script>

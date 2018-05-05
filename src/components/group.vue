@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="fx lh-33">
-            <div class="btn-base f-14" style="width: 108px;">团购报名</div>
+            <div class="btn-base f-14" style="width: 108px;" @click="isFormPopupShow = true">团购报名</div>
             <div class="ta-c fx-1 f-16 c-green">报名团购优惠早知道</div>
           </div>
         </li>
@@ -49,18 +49,29 @@
     </div>
     <!-- 底部热线联系方式按钮区域 -->
     <hotline-bottom></hotline-bottom>
+    <!-- 团购报名 -->
+    <form-popup :is-form-popup-show="isFormPopupShow"
+                :info="formInfo"
+                @close="isFormPopupShow = false"></form-popup>
   </div>
 </template>
 <script>
 import headNav from '@/components/common/headNav.vue'
 import hotlineBottom from '@/components/common/hotlineBottom.vue'
+import formPopup from '@/components/common/formPopup.vue'
 export default {
   data () {
-    return {}
+    return {
+      isFormPopupShow: false,
+      formInfo: {
+        title: '团购报名',
+      },
+    }
   },
   components: {
     headNav,
-    hotlineBottom
+    hotlineBottom,
+    formPopup
   }
 }
 </script>

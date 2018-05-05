@@ -9,8 +9,9 @@
       <!-- 搜索区域 -->
       <div class="mt-15 ml-15 mr-15">
         <div class="fx bgc-w brs-2 search-box">
-          <input class="fx-1 pl-8" type="text" placeholder="请输入楼盘名和区域">
-          <div class="search-btn fx fx-align-center fx-justify-center">
+          <input class="fx-1 pl-8" type="text" maxlength="100"
+                v-model="tempKeyword" placeholder="输入楼盘或区域开始找房咯~">
+          <div class="search-btn fx fx-align-center fx-justify-center" @click="searchKeyword">
             <i class="icon-sprite icon-sprite-search"></i>
           </div>
         </div>
@@ -18,28 +19,28 @@
       <!-- 楼盘列表 -->
       <section class="mt-12 mb-12 pl-8 pr-8 bgc-w bd-t bd-b">
         <ul class="c-3 f-14 bold bd-b fx filter-list">
-          <li @click="isShowFilterPopup = true" class="bd-r fx fx-align-center fx-justify-center fx-1">
-            <span>区域</span>
+          <li @click="handleFilterPopup(1)" class="bd-r fx fx-align-center fx-justify-center fx-1">
+            <span>{{areaTxt}}</span>
             <i class="icon-sprite icon-sprite-triangle"></i>
           </li>
-          <li @click="isShowFilterPopup = true" class="bd-r fx fx-align-center fx-justify-center fx fx-1">
-            <span>售价</span>
+          <li @click="handleFilterPopup(2)" class="bd-r fx fx-align-center fx-justify-center fx fx-1">
+            <span>{{priceTxt}}</span>
             <i class="icon-sprite icon-sprite-triangle"></i>
           </li>
-          <li @click="isShowFilterPopup = true" class="bd-r fx fx-align-center fx-justify-center fx-1">
-            <span>房型</span>
+          <li @click="handleFilterPopup(3)" class="bd-r fx fx-align-center fx-justify-center fx-1">
+            <span>{{houseTypeTxt}}</span>
             <i class="icon-sprite icon-sprite-triangle"></i>
           </li>
-          <li @click="isShowFilterPopup = true" class="fx fx-align-center fx-justify-center fx-1">
-            <span>状态</span>
+          <li @click="handleFilterPopup(4)" class="fx fx-align-center fx-justify-center fx-1">
+            <span>{{statusTxt}}</span>
             <i class="icon-sprite icon-sprite-triangle"></i>
           </li>
         </ul>
-        <p class="no-data bd-b" v-if="!houseList.length && isLastPage">没有找到相关数据，换个搜索条件试试</p>
-        <p class="guess" v-if="!houseList.length && isLastPage">猜你喜欢</p>
+        <p class="no-data bd-b c-9" v-if="noResult">没有找到 “{{keyword}}” 的楼盘 请换其他关键词搜索~</p>
+        <p class="guess c-green bold" v-if="noResult">猜你喜欢</p>
         <ul class="building-list">
           <li class="list-li bd-b" v-for="(house, idx) in houseList" :key="idx">
-            <router-link class="list-li-a" :to="{path:'/detail', query: {city_id: house.city_id}}">
+            <router-link class="list-li-a" :to="{path:'/detail', query: {id: house.id}}">
               <div class="img-box mr-12">
                 <img class="img-full" :src="house.main_image" alt="">
               </div>
@@ -72,23 +73,23 @@
         <div class="filter-content">
           <ul class="c-3 f-14 bold bd-b fx filter-list">
             <li class="bd-r fx fx-align-center fx-justify-center fx-1">
-              <span>区域</span>
+              <span>{{areaTxt}}</span>
               <i class="icon-sprite icon-sprite-triangle"></i>
             </li>
             <li class="bd-r fx fx-align-center fx-justify-center fx fx-1">
-              <span>售价</span>
+              <span>{{priceTxt}}</span>
               <i class="icon-sprite icon-sprite-triangle"></i>
             </li>
             <li class="bd-r fx fx-align-center fx-justify-center fx-1">
-              <span>房型</span>
+              <span>{{houseTypeTxt}}</span>
               <i class="icon-sprite icon-sprite-triangle"></i>
             </li>
             <li class="fx fx-align-center fx-justify-center fx-1">
-              <span>状态</span>
+              <span>{{statusTxt}}</span>
               <i class="icon-sprite icon-sprite-triangle"></i>
             </li>
           </ul>
-          <div class="filter-item-list">
+          <div class="filter-item-list" v-show="filterPopupType != 4">
             <ul>
               <li class="lh-40 bd-b c-0">不限</li>
               <li class="lh-40 bd-b c-0">不限</li>
@@ -99,6 +100,21 @@
               <li class="lh-40 bd-b c-0">不限</li>
               <li class="lh-40 bd-b c-0">不限</li>
             </ul>
+          </div>
+          <div class="bgc-w" v-show="filterPopupType == 4">
+            <div class="bd-b pd-20">
+              <div class="f-14 bold mb-12">售卖状态</div>
+              <div class="fx fx-justify-between">
+                <div class="status-tag">不限</div>
+                <div class="status-tag">在售</div>
+                <div class="status-tag">待售</div>
+                <div class="status-tag">售罄</div>
+              </div>
+            </div>
+            <div class="f-16 ta-c bold" style="line-height: 49px;">
+              <div class="c-9">清空条件</div>
+              <div class="bgc-green c-f">确定</div>
+            </div>
           </div>
         </div>
       </section>
@@ -123,7 +139,14 @@ export default {
       page: 1,
       city_id: '',
       tempKeyword: '', // 临时输入关键词
-      keyword: '',
+      keyword: this.$route.query.keyword || '',
+      noResult: false, // 没有搜索和查询结果
+      cityList: [], // 城市列表
+      areaTxt: '区域',
+      priceTxt: '售价',
+      houseTypeTxt: '房型',
+      statusTxt: '状态',
+      filterPopupType: 0, // 筛选条件弹窗弹出的类型 1：区域，2：售价，3：房型，4：状态
     }
   },
   components: {
@@ -131,32 +154,60 @@ export default {
     cFooter
   },
   created () {
-    this.getList()
+    this.getHouseList({
+      keyword: this.keyword
+    }).then(res => {
+      // 第一次筛选请求没有数据，需要展示猜你喜欢
+      if (!res.data || !res.data.length) {
+        this.noResult = true
+        this.getHouseList()
+      } else {
+        this.noResult = false
+      }
+    })
   },
 
   watch: {
     city_id (newV) {
-      this.reList()
+      this.reHouseList()
     },
     keyword (newV) {
-      this.reList()
+      this.reHouseList()
     }
   },
   methods: {
-    reList () {
+    reHouseList () {
       this.page = 1
       this.houseList = []
       this.isLastPage = false
-      this.getList()
+      this.getHouseList({
+        city_id: this.city_id,
+        keyword: this.keyword
+      }).then(res => {
+        // 第一次筛选请求没有数据，需要展示猜你喜欢
+        if (!res.data || !res.data.length) {
+          this.noResult = true
+          this.getHouseList()
+        } else {
+          this.noResult = false
+        }
+      })
     },
 
-    getList () {
+    searchKeyword () {
+      this.keyword = this.tempKeyword
+    },
+
+    getHouseList (param = {}) {
+      // 在搜索没有结果时，需要展示猜你喜欢
+      // 猜你喜欢其实就是没带city_id和keword的列表
+      // 因此在请求的时候，需要使用noResult这个变量，来过滤city_id和keyword
       return new Promise((resolve, reject) => {
         this.fetchData(`/api/houses/index?page=${
           this.page
         }&page_size=${this.pageSize}&city_id=${
-          this.city_id
-        }&keyword=${this.keyword}`).then(res => {
+          !this.noResult && param.city_id || ''
+        }&keyword=${!this.noResult && param.keyword || ''}`).then(res => {
           this.houseList = this.houseList.concat(res.data)
           this.isLastPage = res.data.length < this.pageSize
           resolve(res)
@@ -171,17 +222,37 @@ export default {
       if (this.loading || this.isLastPage) return
       this.loading = true
       this.page++
-      this.getList().then(res => {
+      this.getHouseList({
+        city_id: this.city_id,
+        keyword: this.keyword
+      }).then(res => {
         this.loading = false
       }).catch(err => {
         this.loading = false
       })
+    },
+
+    // 筛选条件弹窗处理
+    handleFilterPopup (type) {
+      this.isShowFilterPopup = true
+      this.filterPopupType = type
+    },
+
+    // 城市列表
+    getCityList (city_id = '') {
+      this.fetchData(`/api/houses/index?city_id=${city_id}`)
+          .then(res => {
+            this.cityList = res.data
+          })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.pd-20 {
+  padding: 20px;
+}
 .search-btn {
   width: 56px;
   border-left: 1px solid #e5e5e5;
@@ -215,15 +286,15 @@ export default {
   border: 1px solid #e5e5e5;
 }
 .no-data {
-  font-size: 13px;
-  padding: 16px 0;
+  font-size: 14px;
+  padding: 20px 0;
   text-align: center;
-  line-height: 1.5;
+  line-height: 28px;
 }
 .guess {
-  padding: 6px 6px 0;
-  font-size: 13px;
-  line-height: 1.5;
+  padding: 20px 0;
+  font-size: 14px;
+  line-height: 28px;
   text-align: left;
 }
 .building-list {
@@ -276,5 +347,16 @@ export default {
   max-height: 410px;
   padding-left: 19px;
   overflow-y: scroll;
+}
+
+.status-tag {
+  width: 70px;
+  height: 25px;
+  line-height: 25px;
+  border: 1px solid #e5e5e5;
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  border-radius: 2px;
 }
 </style>

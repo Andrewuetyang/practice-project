@@ -8,8 +8,10 @@
       <div class="search-wrapper">
         <div class="search-box">
           <div class="search">
-            <input class="search-input" type="text" placeholder="输入楼盘或区域开始找房咯~">
-            <i class="icon-search"></i>
+            <input class="search-input" type="text" v-model="keyword" placeholder="输入楼盘或区域开始找房咯~">
+            <div class="icon-search-box" @click="search">
+              <i class="icon-search"></i>
+            </div>
           </div>
         </div>
       </div>
@@ -76,7 +78,8 @@ export default {
         ['在售', '待售', '售罄'],
         ['1万以下', '1-2万', '全部'],
       ],
-      houseList: []
+      houseList: [],
+      keyword: ''
     }
   },
   
@@ -94,7 +97,7 @@ export default {
 
     /**
      * 跳转列表页
-     * @param index {{Number}} 种类：0-房型，1-房子状态，2-均价
+     * @param index {{Number}} 种类：0-房型，1-房子状态，2-均价 3-搜索
      * @param item {{String}} 名称文本
      * @param idx {{Number}} 名称文本在集合中的下标
      */
@@ -103,18 +106,25 @@ export default {
         this.$router.push({path: '/list', query: {style: item}})
       } else if (index === 1) {
         this.$router.push({path: '/list', query: {status: item}})
-      } else {
+      } else if (index === 2) {
         if (idx === 2) {
           this.$router.push({path: '/list'})
         } else {
           this.$router.push({path: '/list', query: {price: item}})
         }
+      } else { 
+        this.$router.push({path: '/list', query: {keyword: item}})
       }
     },
 
     // 跳转楼盘详情页
     linkToDetail (id) {
       this.$router.push({path: '/detail', query: {id: id}})
+    },
+
+    // 搜索跳转
+    search () {
+      this.linkToList(3, this.keyword)
     }
   }
 }
@@ -145,13 +155,20 @@ export default {
           padding: 0 8px;
           background: #fff;
         }
+        .icon-search-box {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 36px;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center; 
+        }
         .icon-search {
           display: inline-block;
           width: 22px;
           height: 22px;
-          position: absolute;
-          top: 7px;
-          right: 7px;
           background: url(../assets/imgs/sprite_newh.svg) no-repeat;
           background-size: 22px 701px;
           background-position: 0 -152px;

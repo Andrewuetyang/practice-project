@@ -1,7 +1,7 @@
 <template>
   <section class="head-nav bd-b fx fx-justify-between fx-align-center">
     <a class="go-back" href="javascript:history.back();"></a>
-    <img :src="logoSrc" height="30" alt="" @click="linkTo(1)">
+    <img :src="logoSrc" width="70" height="40" alt="" @click="linkTo(1)">
     <i class="icon iconfont icon-caidan menu" @click="isShowMenu = true"></i>
     <!-- menu弹层 暂时隐藏 -->
     <section class="menu-layer" @click="isShowMenu = false" v-show="isShowMenu">
@@ -29,7 +29,7 @@
   </section>
 </template>
 <script>
-import logo from '@/assets/imgs/logo.jpg'
+import logo from '@/assets/imgs/519logo.png'
 export default {
   data () {
     return {
