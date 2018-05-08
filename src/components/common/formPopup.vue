@@ -20,11 +20,11 @@
             <div class="f-13" style="width: 26%;">备注信息:</div>
             <textarea class="fx-1 text-input" maxlength="800" v-model="remark"></textarea>
           </li>
-          <li class="mt-10 mb-10 fx fx-align-center">
+          <!-- <li class="mt-10 mb-10 fx fx-align-center">
             <div class="f-13" style="width: 26%;">验证码:</div>
             <input class="fx-1 text-input" type="text" maxlength="10" v-model="code">
             <div></div>
-          </li>
+          </li> -->
         </ul>
         <div class="f-12" style="color: #f00;">* 温馨提示：联系方式提交后，将会有专业的经纪人联系您，请您耐心等待.</div>
         <div class="btn-base f-18 lh-38 btn-fbk-green mt-10" @click="check">提交</div>
@@ -42,7 +42,7 @@ export default {
       userName: '',
       phoneNo: '',
       remark: '',
-      code: ''
+      // code: ''
     }
   },
   methods: {
@@ -63,7 +63,9 @@ export default {
 
     //提交信息, 完成后关闭窗口
     submit () {
-      this.fetchData().then(res => {
+      let queryData = `type=${this.info.type}&name=${this.userName}&tel=${this.phoneNo}`
+      if (this.remark) queryData += `&remark=${this.remark}`
+      this.fetchData(`/api/common/subscribe?${queryData}`).then(res => {
         this.$emit('close')
       })
     }
@@ -74,6 +76,7 @@ export default {
 .text-input {
   padding: 0 8px;
   height: 31px;
+  line-height: 31px;
   border: 1px solid #eee;
   background-color: #f9f9f9;
 }

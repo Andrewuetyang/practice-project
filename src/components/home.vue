@@ -64,13 +64,13 @@
   </div>
 </template>
 <script>
-import fetchMixin from '@/components/common/fetch-mixin.js'
+import fetchDataMixin from '@/components/common/fetch-mixin.js'
 import headNav from '@/components/common/headNav.vue'
 import bodyNav from '@/components/common/bodyNav.vue'
 import cFooter from '@/components/common/footer.vue'
 import sprite_newh from '@/assets/imgs/sprite_newh.svg'
 export default {
-  mixins: [fetchMixin],
+  mixins: [fetchDataMixin],
   data () {
     return {
       filterList: [

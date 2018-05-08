@@ -45,5 +45,6 @@
   #app {
     height: 100%;
     overflow: scroll;
+    -webkit-overflow-scrolling: touch;
   }
 </style>

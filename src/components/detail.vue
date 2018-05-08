@@ -203,12 +203,12 @@
   </div>
 </template>
 <script>
-import fetchMixin from '@/components/common/fetch-mixin.js'
+import fetchDataMixin from '@/components/common/fetch-mixin.js'
 import headNav from '@/components/common/headNav.vue'
 import formPopup from '@/components/common/formPopup.vue'
 import {Swipe as swipe, SwipeItem as swipeItem} from 'c-swipe'
 export default {
-  mixins: [fetchMixin],
+  mixins: [fetchDataMixin],
   data () {
     return {
       index: 0,
@@ -217,7 +217,8 @@ export default {
       imgSrc: 'url(//www.hjw68.com/wp-content/uploads/2017/11/2-4.png)',
       isFormPopupShow: false,
       reserveInfo: {
-        title: '预约看房'
+        title: '预约看房',
+        type: 1
       },
       id: this.$route.query.id,
       houseInfo: {

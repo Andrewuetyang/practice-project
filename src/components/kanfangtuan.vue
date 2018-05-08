@@ -59,7 +59,7 @@
             <div class="ta-c c-0" style="width: 108px;">水悦山庄</div>
             <div class="c-0 mr-24">均价：7500元/m2</div>
           </div>
-          <p class="ta-c c-c">往期活动</p>
+          <p class="prev-act ta-c c-c">往期活动</p>
         </li>
       </ul>
     </div>
@@ -75,12 +75,15 @@
 import headNav from '@/components/common/headNav.vue'
 import hotlineBottom from '@/components/common/hotlineBottom.vue'
 import formPopup from '@/components/common/formPopup.vue'
+import fetchDataMixin from '@/components/common/fetch-mixin.js'
 export default {
+  mixins: [fetchDataMixin],
   data () {
     return {
       isFormPopupShow: false,
       formInfo: {
-        title: '看房团报名'
+        title: '看房团报名',
+        type: 3
       }
     }
   },
