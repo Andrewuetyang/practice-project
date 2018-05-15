@@ -93,7 +93,7 @@ export default {
 
   created () {
     this.fetchRecommend()
-    this.fetchBanner()
+    // this.fetchBanner()
   },
 
   methods: {
