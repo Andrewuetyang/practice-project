@@ -13,7 +13,6 @@
     },
     mounted () {
       this.andriodInputBug()
-      this.fetchAboutUs()
     },
     methods: {
       //解决安卓点击input，弹出键盘挡住input的问题
@@ -28,15 +27,6 @@
           })
         }
       },
-
-      // 获取关于我们的信息
-      fetchAboutUs () {
-        this.fetchData('/api/common/about').then(res => {
-          this.$store.commit('appGlobal', {
-            aboutUs: res.data
-          })
-        })
-      }
     }
   }
 </script>

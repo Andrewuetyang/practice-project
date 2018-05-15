@@ -37,26 +37,28 @@
     <section class="mt-12 mb-12 pl-8 pr-8 bgc-w bd-t bd-b">
       <h3 class="c-3 f-16 bd-b" style="line-height: 55px;">推荐楼盘</h3>
       <ul class="building-list">
-        <li class="list-li bd-b" @click="linkToDetail()">
-          <a class="list-li-a" href="#">
+        <li class="list-li bd-b"
+            v-for="(house, index) in houseList" :key="index">
+          <router-link class="list-li-a" :to="{path:'/detail', query: {id: house.id}}">
             <div class="img-box mr-12">
-              <img class="img-full" src="http://www.hjw68.com/wp-content/uploads/2017/09/实景图-1-333x235.jpg" alt="">
+              <img class="img-full" :src="house.main_image" alt="">
               <span class="img-desc">效果图</span>
             </div>
             <div class="desc-box c-grey">
-              <div class="mb-7 f-16 bold c-3 lh-20">富力南昆山</div>
+              <div class="mb-7 f-16 bold c-3 lh-20">{{house.house_name}}</div>
               <div class="fx mb-7 f-12">
-                <span class="text-overflow">阿萨德发生的发生度假区（广河高速永汉出口处）</span>
+                <span class="text-overflow">{{house.address}}</span>
               </div>
               <div class="fx fx-justify-between mb-7">
-                <span class="f-12">惠州</span>
-                <span class="c-dark-red f-15">8500元/平</span>
+                <span class="f-12">{{house.city}}</span>
+                <span class="c-dark-red f-15">{{house.property_fee}}</span>
               </div>
               <div>
-                <span class="tag">双卫</span>
+                <span class="tag" v-for="(item, idx) in house.decoration_condition.split('，')"
+                      :key="idx">{{item}}</span>
               </div>
             </div>
-          </a>
+          </router-link>
         </li>
       </ul>
     </section>
@@ -90,10 +92,37 @@ export default {
   },
 
   created () {
-    
+    this.fetchRecommend()
+    this.fetchBanner()
   },
 
   methods: {
+
+    /*
+    * 获取banner
+    */
+    fetchBanner () {
+      return new Promise((resolve, reject) => {
+        this.fetchData(`/api/common/banner?city_id=${2}`).then(res => {
+          console.log(res, '3333')
+        })
+      })
+    },
+
+    fetchRecommend () {
+      // 在搜索没有结果时，需要展示猜你喜欢
+      // 猜你喜欢其实就是没带city_id和keword的列表
+      // 因此在请求的时候，需要使用noResult这个变量，来过滤city_id和keyword
+      return new Promise((resolve, reject) => {
+        this.fetchData(`/api/houses/recommend`).then(res => {
+          this.houseList = res.data
+          resolve(res)
+        }).catch(err => {
+          console.log(err)
+          reject(err)
+        })
+      })
+    },
 
     /**
      * 跳转列表页

@@ -36,7 +36,7 @@
             <i class="icon-sprite icon-sprite-triangle"></i>
           </li>
         </ul>
-        <p class="no-data bd-b c-9" v-if="noResult">没有找到 “{{keyword}}” 的楼盘 请换其他关键词搜索~</p>
+        <p class="no-data bd-b c-9" v-if="noResult">没有找到 "{{keyword}}" 的楼盘 请换其他关键词搜索~</p>
         <p class="guess c-green bold" v-if="noResult">猜你喜欢</p>
         <ul class="building-list">
           <li class="list-li bd-b" v-for="(house, idx) in houseList" :key="idx">
@@ -67,24 +67,24 @@
           <span class="c-0 f-14">加载中...</span>
         </p>
       </section>
-      <!-- 筛选条件 暂时先隐藏 -->
+      <!-- 筛选条件 -->
       <section class="filter-popup" v-if="isShowFilterPopup">
         <div class="empty-layer"  @click.stop="isShowFilterPopup=false"></div>
         <div class="filter-content">
           <ul class="c-3 f-14 bold bd-b fx filter-list">
-            <li class="bd-r fx fx-align-center fx-justify-center fx-1">
+            <li @click="filterPopupType = 1" class="bd-r fx fx-align-center fx-justify-center fx-1">
               <span>{{areaTxt}}</span>
               <i class="icon-sprite icon-sprite-triangle"></i>
             </li>
-            <li class="bd-r fx fx-align-center fx-justify-center fx fx-1">
+            <li @click="filterPopupType = 2" class="bd-r fx fx-align-center fx-justify-center fx fx-1">
               <span>{{priceTxt}}</span>
               <i class="icon-sprite icon-sprite-triangle"></i>
             </li>
-            <li class="bd-r fx fx-align-center fx-justify-center fx-1">
+            <li @click="filterPopupType = 3" class="bd-r fx fx-align-center fx-justify-center fx-1">
               <span>{{houseTypeTxt}}</span>
               <i class="icon-sprite icon-sprite-triangle"></i>
             </li>
-            <li class="fx fx-align-center fx-justify-center fx-1">
+            <li @click="filterPopupType = 4" class="fx fx-align-center fx-justify-center fx-1">
               <span>{{statusTxt}}</span>
               <i class="icon-sprite icon-sprite-triangle"></i>
             </li>

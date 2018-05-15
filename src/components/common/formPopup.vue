@@ -63,9 +63,10 @@ export default {
 
     //提交信息, 完成后关闭窗口
     submit () {
-      let queryData = `type=${this.info.type}&name=${this.userName}&tel=${this.phoneNo}`
+      let queryData = `type=${this.info.type}&subscribe_id=1&name=${this.userName}&tel=${this.phoneNo}`
       if (this.remark) queryData += `&remark=${this.remark}`
       this.fetchData(`/api/common/subscribe?${queryData}`).then(res => {
+        this.$methods.toast(res.msg)
         this.$emit('close')
       })
     }

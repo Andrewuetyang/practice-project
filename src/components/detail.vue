@@ -17,7 +17,7 @@
           <span class="f-14 c-6 pl-8 bd-l">{{houseInfo.build_cat}}-{{houseInfo.status}}</span>
         </div>
         <div class="fx fx-justify-between fx-align-center f-20">
-          <span class="f-16 bold c-red">均价<span class="f-20">{{houseInfo.average_price}}</span>元/平</span>
+          <span class="f-16 bold c-red">均价<span class="f-20">{{houseInfo.average_price}}</span>/平</span>
           <span class="f-14" style="color: #939fa1;">占地面积：{{houseInfo.area}}平米</span>
         </div>
         <!-- 标签属性 -->

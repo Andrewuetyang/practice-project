@@ -1,9 +1,14 @@
 export default {
   methods: {
     countDown (target = []) {
+      let currentTimestamp = Math.floor(Date.now() / 1000)
       target.forEach((val, idx) => {
+        val.timeLeft = val.overdue_timestamp - currentTimestamp
+        val.countDownTxt = ''
+        val.isOverdue = false
         this.countDownTimer(val)
       })
+      return target.slice()
     },
 
     countDownTimer (data) {

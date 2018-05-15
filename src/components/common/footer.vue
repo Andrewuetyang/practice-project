@@ -4,9 +4,7 @@
       <li>关于我们</li>
     </ul>
     <div class="footer-info">
-      <p v-html="global.aboutUs.content"></p>
-      <!-- <p class="lh-15">以上信息仅供参考，最终结果以开发商公布以及政府部门登陆备案为准，谢谢！</p>
-      <p class="f-13">Copyright ⓒ 2010-2017  www.hjw68.com  All rights reserved.  广州市宏居房地产代理有限公司  粤ICP备17095818号-1 技术支持</p> -->
+      <p class="f-13">Copyright©2017 广州嘉鸿房地产代理有限公司 粤ICP备 17148220号-1</p>
     </div>
   </div>
 </template>
