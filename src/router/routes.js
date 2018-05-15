@@ -12,9 +12,9 @@ import detail from '../components/detail.vue'
 
 //前端路由
 export default [
-  { path: '/', component: home, meta: { title: '房产' }},
+  { path: '/', component: home, meta: { title: '我要购房网' }},
   { path: '/group', component: group, meta: { title: '优惠团购' }},
-  { path: '/list', component: list, meta: { title: '列表' }},
-  { path: '/kanfangtuan', component: kanfangtuan, meta: { title: '看房团' }},
-  { path: '/detail', component: detail, meta: { title: '详情' }},
+  { path: '/list', component: list, meta: { title: '楼盘列表' }},
+  { path: '/kanfangtuan', component: kanfangtuan, meta: { title: '看房团报名' }},
+  { path: '/detail', component: detail, meta: { title: '楼盘详情' }},
 ]
