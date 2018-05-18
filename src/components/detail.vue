@@ -14,7 +14,7 @@
       <div>
         <div class="lh-24 bold mb-8">
           <span class="f-17 mr-8">{{houseInfo.house_name}}</span>
-          <span class="f-14 c-6 pl-8 bd-l">{{houseInfo.build_cat}}-{{houseInfo.status}}</span>
+          <span class="f-14 c-6 pl-8 bd-l">{{houseInfo.build_cat}}-{{houseInfo.sale_status}}</span>
         </div>
         <div class="fx fx-justify-between fx-align-center f-20">
           <span class="f-16 bold c-red">均价<span class="f-20">{{houseInfo.average_price}}</span>/平</span>
@@ -46,12 +46,12 @@
     <div class="bgc-w mb-12 pl-8 pr-8" @click="isPopupImgsShow = true">
       <div class="lh-55 f-16">
         <span class="c-3 bold">户型介绍</span>
-        <span class="c-9">(3种)</span>
+        <span class="c-9">({{houseStyleList.length || '-'}}种)</span>
       </div>
       <ul>
-        <li class="bd-t pt-20 pb-20 fx">
+        <li class="bd-t pt-20 pb-20 fx" v-for="houseStyle in houseStyleList" :key="houseStyle.id">
           <div class="mr-12 fx fx-align-center" style="width: 108px;">
-            <img class="img-full" src="http://www.hjw68.com/wp-content/uploads/2017/09/实景图-1-333x235.jpg" alt="">
+            <img class="img-full" :src="houseStyle.main_image" alt="">
           </div>
           <div class="desc-box">
             <div class="f-16 lh-20 mb-6">
@@ -83,11 +83,11 @@
         </li>
         <li class="info-list-item bd-t fx">
           <div class="c-9" style="width: 80px;">交房时间</div>
-          <!-- <div class="">{{houseInfo.open_time}}</div> -->
+          <div class="">{{houseInfo.delivery_time}}</div>
         </li>
         <li class="info-list-item bd-t fx">
           <div class="c-9" style="width: 80px;">预售证号</div>
-          <!-- <div class="">{{houseInfo.open_time}}</div> -->
+          <div class="">{{houseInfo.presell_no}}</div>
         </li>
         <li class="info-list-item bd-t fx">
           <div class="c-9" style="width: 80px;">项目地址</div>
@@ -103,19 +103,19 @@
         </li>
         <li class="info-list-item bd-t fx">
           <div class="c-9" style="width: 80px;">车位数量</div>
-          <!-- <div class="">{{houseInfo.decoration_condition}}</div> -->
+          <div class="">{{houseInfo.car_num}}</div>
         </li>
         <li class="info-list-item bd-t fx">
           <div class="c-9" style="width: 80px;">容积率</div>
-          <!-- <div class="">{{houseInfo.decoration_condition}}</div> -->
+          <div class="">{{houseInfo.cubage_rate}}</div>
         </li>
         <li class="info-list-item bd-t fx">
           <div class="c-9" style="width: 80px;">绿化率</div>
-          <!-- <div class="">{{houseInfo.decoration_condition}}</div> -->
+          <div class="">{{houseInfo. greening_rate}}</div>
         </li>
         <li class="info-list-item bd-t fx">
           <div class="c-9" style="width: 80px;">占地面积</div>
-          <!-- <div class="">{{houseInfo.decoration_condition}}</div> -->
+          <div class="">{{houseInfo.cover}}</div>
         </li>
         <li class="info-list-item bd-t fx">
           <div class="c-9" style="width: 80px;">平均价格</div>
@@ -123,7 +123,7 @@
         </li>
         <li class="info-list-item bd-t fx">
           <div class="c-9" style="width: 80px;">物业公司</div>
-          <!-- <div class="">{{houseInfo.decoration_condition}}</div> -->
+          <div class="">{{houseInfo.property_company}}</div>
         </li>
       </ul>
     </div>
@@ -175,7 +175,7 @@
         <i class="icon-base reserve-icon"></i>
         <span class="f-12">预约</span>
       </div>
-      <a class="btn-base c-btn btn-fbk-green" style="width: 70%;" href="tel:">联系售楼处</a>
+      <a class="btn-base c-btn btn-fbk-green" style="width: 70%;" :href="telHref">联系售楼处{{tel}}</a>
     </div>
     <!-- 图片弹窗展示区域 -->
     <!-- 这里需要用v-if， 虽然v-show渲染更节省性能，但是swipe组件不支持 -->
@@ -221,10 +221,11 @@ export default {
         type: 1
       },
       id: this.$route.query.id,
+      tel: this.$route.query.tel,
       houseInfo: {
         decoration_condition: ''
       },
-      houseStyle: {},
+      houseStyleList: [],
     }
   },
   computed: {
@@ -241,6 +242,11 @@ export default {
   created () {
     this.fetchInfo()
     this.fetchHouseStyle()
+  },
+  computed: {
+    telHref () {
+      return `tel:${this.tel}`
+    },
   },
   methods: {
     // 获取楼盘信息
@@ -261,9 +267,9 @@ export default {
     // 获取房型信息
     fetchHouseStyle () {
       return new Promise((resolve, reject) => {
-        this.fetchData(`/api/housesStyle/detail?id=${this.id}`)
+        this.fetchData(`/api/housesStyle/index?supplier_house=${this.id}`)
             .then(res => {
-              this.houseStyle = res.data
+              this.houseStyleList = res.data.data
               resolve(res)
             }).catch(err => {
               console.log(err)

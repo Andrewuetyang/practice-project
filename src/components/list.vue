@@ -28,7 +28,7 @@
             <i class="icon-sprite icon-sprite-triangle"></i>
           </li>
           <li @click="handleFilterPopup(3)" class="bd-r fx fx-align-center fx-justify-center fx-1">
-            <span>{{houseTypeTxt}}</span>
+            <span>{{houseSizeTxt}}</span>
             <i class="icon-sprite icon-sprite-triangle"></i>
           </li>
           <li @click="handleFilterPopup(4)" class="fx fx-align-center fx-justify-center fx-1">
@@ -36,11 +36,11 @@
             <i class="icon-sprite icon-sprite-triangle"></i>
           </li>
         </ul>
-        <p class="no-data bd-b c-9" v-if="noResult">没有找到 "{{keyword}}" 的楼盘 请换其他关键词搜索~</p>
+        <p class="no-data bd-b c-9" v-if="noResult">没有找到 "{{filter}}" 的楼盘 请换其他筛选条件~</p>
         <p class="guess c-green bold" v-if="noResult">猜你喜欢</p>
         <ul class="building-list">
           <li class="list-li bd-b" v-for="(house, idx) in houseList" :key="idx">
-            <router-link class="list-li-a" :to="{path:'/detail', query: {id: house.id}}">
+            <router-link class="list-li-a" :to="{path:'/detail', query: {id: house.id, tel: house.tel}}">
               <div class="img-box mr-12">
                 <img class="img-full" :src="house.main_image" alt="">
               </div>
@@ -81,7 +81,7 @@
               <i class="icon-sprite icon-sprite-triangle"></i>
             </li>
             <li @click="filterPopupType = 3" class="bd-r fx fx-align-center fx-justify-center fx-1">
-              <span>{{houseTypeTxt}}</span>
+              <span>{{houseSizeTxt}}</span>
               <i class="icon-sprite icon-sprite-triangle"></i>
             </li>
             <li @click="filterPopupType = 4" class="fx fx-align-center fx-justify-center fx-1">
@@ -91,24 +91,29 @@
           </ul>
           <div class="filter-item-list" v-show="filterPopupType != 4">
             <ul>
-              <li class="lh-40 bd-b c-0">不限</li>
-              <li class="lh-40 bd-b c-0">不限</li>
-              <li class="lh-40 bd-b c-0">不限</li>
-              <li class="lh-40 bd-b c-0">不限</li>
-              <li class="lh-40 bd-b c-0">不限</li>
-              <li class="lh-40 bd-b c-0">不限</li>
-              <li class="lh-40 bd-b c-0">不限</li>
-              <li class="lh-40 bd-b c-0">不限</li>
+              <li class="lh-40 bd-b c-0"
+                  v-show="filterPopupType === 1"
+                  v-for="city in cityList"
+                  :key="city.id"
+                  @click="selectCity(city)">{{city.city_name}}</li>
+              <li class="lh-40 bd-b c-0"
+                  v-show="filterPopupType === 2"
+                  v-for="(price, index) in priceList"
+                  :key="index"
+                  @click="selectPrice(price, index)">{{price}}</li>
+              <li class="lh-40 bd-b c-0"
+                  v-show="filterPopupType === 3"
+                  v-for="(houseSize, index) in houseSizeList"
+                  :key="index"
+                  @click="selectHouseSize(houseSize, index)">{{houseSize}}</li>
             </ul>
           </div>
           <div class="bgc-w" v-show="filterPopupType == 4">
             <div class="bd-b pd-20">
               <div class="f-14 bold mb-12">售卖状态</div>
               <div class="fx fx-justify-between">
-                <div class="status-tag">不限</div>
-                <div class="status-tag">在售</div>
-                <div class="status-tag">待售</div>
-                <div class="status-tag">售罄</div>
+                <div class="status-tag" v-for="(saleStatus, index) in saleStatusList"
+                    :key="index" @click="selectSaleStaus(saleStatus, index)">{{saleStatus}}</div>
               </div>
             </div>
             <div class="f-16 ta-c bold" style="line-height: 49px;">
@@ -137,14 +142,41 @@ export default {
       houseList: [], // 楼盘列表
       pageSize: 10,
       page: 1,
+      filter: '', // 筛选名称
       city_id: '',
       tempKeyword: '', // 临时输入关键词
       keyword: this.$route.query.keyword || '',
+      sale_status: this.$route.query.sale_status || '',
+      price: this.$route.query.price || '',
+      house_size: this.$route.query.house_size || '',
       noResult: false, // 没有搜索和查询结果
       cityList: [], // 城市列表
+      houseSizeList: [
+        '一室',
+        '二室',
+        '三室',
+        '四室',
+        '五室',
+        '五室以上',
+        '别墅'
+      ], // 房型列表
+      priceList: [
+        '1万以下',
+        '1-2万',
+        '2-3万',
+        '3-5万',
+        '5-8万',
+        '8万以上',
+      ],
+      saleStatusList: [
+        '不限',
+        '在售',
+        '待售',
+        '售罄'
+      ],
       areaTxt: '区域',
       priceTxt: '售价',
-      houseTypeTxt: '房型',
+      houseSizeTxt: '房型',
       statusTxt: '状态',
       filterPopupType: 0, // 筛选条件弹窗弹出的类型 1：区域，2：售价，3：房型，4：状态
     }
@@ -154,6 +186,9 @@ export default {
     cFooter
   },
   created () {
+    this.getCityList().then(res => {
+      // this.getHouseStyle()
+    })
     this.getHouseList({
       keyword: this.keyword
     }).then(res => {
@@ -171,6 +206,15 @@ export default {
     city_id (newV) {
       this.reHouseList()
     },
+    house_size (newV) {
+      this.reHouseList()
+    },
+    sale_status (newV) {
+      this.reHouseList()
+    },
+    price (newV) {
+      this.reHouseList()
+    },
     keyword (newV) {
       this.reHouseList()
     }
@@ -182,9 +226,12 @@ export default {
       this.isLastPage = false
       this.getHouseList({
         city_id: this.city_id,
+        price: this.price,
+        house_size: this.house_size,
+        sale_status: this.sale_status,
         keyword: this.keyword
       }).then(res => {
-        // 第一次筛选请求没有数据，需要展示猜你喜欢
+        // 筛选请求没有数据，需要展示猜你喜欢
         if (!res.data || !res.data.length) {
           this.noResult = true
           this.getHouseList()
@@ -194,20 +241,51 @@ export default {
       })
     },
 
+    selectCity(city) {
+      this.city_id = city.id
+      this.filter = city.city_name
+      this.areaTxt = city.city_name
+      this.isShowFilterPopup = false
+    },
+
+    selectHouseSize(houseSize, index) {
+      this.house_size = index + 1
+      this.filter = houseSize
+      this.houseSizeTxt = houseSize
+      this.isShowFilterPopup = false
+    },
+
+    selectPrice(price, index) {
+      this.price = index + 1
+      this.filter = price
+      this.priceTxt = price
+      this.isShowFilterPopup = false
+    },
+
+    selectSaleStaus(saleStatus, index) {
+      this.sale_status = index + 1
+      this.filter = saleStatus
+      this.statusTxt = saleStatus
+      this.isShowFilterPopup = false
+    },
+
     searchKeyword () {
       this.keyword = this.tempKeyword
+      this.filter = this.keyword
     },
 
     getHouseList (param = {}) {
       // 在搜索没有结果时，需要展示猜你喜欢
-      // 猜你喜欢其实就是没带city_id和keword的列表
+      // 猜你喜欢其实就是筛选没结果时，不带筛选条件拉取的数据
       // 因此在请求的时候，需要使用noResult这个变量，来过滤city_id和keyword
       return new Promise((resolve, reject) => {
-        this.fetchData(`/api/houses/index?page=${
-          this.page
-        }&page_size=${this.pageSize}&city_id=${
-          !this.noResult && param.city_id || ''
-        }&keyword=${!this.noResult && param.keyword || ''}`).then(res => {
+        let url = `/api/houses/index?page=${this.page}&page_size=${this.pageSize}`
+        if (!this.noResult && param.city_id) url += `&city_id=${param.city_id}`
+        if (!this.noResult && param.price) url += `&price=${param.price}`
+        if (!this.noResult && param.house_size) url += `&house_size=${param.house_size}`
+        if (!this.noResult && param.sale_status) url += `&sale_status=${param.sale_status}`
+        if (!this.noResult && param.keyword) url += `&keyword=${param.keyword}`
+        this.fetchData(url).then(res => {
           this.houseList = this.houseList.concat(res.data)
           this.isLastPage = res.data.length < this.pageSize
           resolve(res)
@@ -224,6 +302,9 @@ export default {
       this.page++
       this.getHouseList({
         city_id: this.city_id,
+        price: this.price,
+        house_size: this.house_size,
+        sale_status: this.sale_status,
         keyword: this.keyword
       }).then(res => {
         this.loading = false
@@ -239,12 +320,16 @@ export default {
     },
 
     // 城市列表
-    getCityList (city_id = '') {
-      this.fetchData(`/api/houses/index?city_id=${city_id}`)
-          .then(res => {
-            this.cityList = res.data
-          })
-    }
+    getCityList () {
+      return new Promise((resolve, reject) => {
+        this.fetchData('/api/city/index')
+            .then(res => {
+              this.cityList = res.data
+              resolve(res)
+            }).catch(err => reject(err))
+      })
+    },
+    
   }
 }
 </script>
@@ -340,6 +425,7 @@ export default {
   .filter-content {
     position: relative;
     background: #fff;
+    box-shadow: 0 0 10px #999;
   }
 }
 

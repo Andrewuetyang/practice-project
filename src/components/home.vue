@@ -132,14 +132,14 @@ export default {
      */
     linkToList (index, item, idx) {
       if (index === 0) {
-        this.$router.push({path: '/list', query: {style: item}})
+        this.$router.push({path: '/list', query: {house_size: idx + 1}})
       } else if (index === 1) {
-        this.$router.push({path: '/list', query: {status: item}})
+        this.$router.push({path: '/list', query: {sale_status: idx + 1}})
       } else if (index === 2) {
         if (idx === 2) {
           this.$router.push({path: '/list'})
         } else {
-          this.$router.push({path: '/list', query: {price: item}})
+          this.$router.push({path: '/list', query: {price: idx + 1}})
         }
       } else { 
         this.$router.push({path: '/list', query: {keyword: item}})
