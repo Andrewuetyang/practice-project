@@ -240,7 +240,7 @@ export default {
       return result
     },
     consultHref () {
-      return `mqqapi://card/show_pslcard?src_type=internal&version=1&uin=${this.consultQQ}&card_type=group&source=external`
+      return `mqqapi://card/show_pslcard?src_type=internal&source=sharecard&version=1&uin=${this.consultQQ}`
     },
   },
   filters: {
