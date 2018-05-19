@@ -51,7 +51,7 @@
               </div>
               <div class="fx fx-justify-between mb-7">
                 <span class="f-12">{{house.city}}</span>
-                <span class="c-dark-red f-15">{{house.property_fee}}</span>
+                <span class="c-dark-red f-15">{{house.average_price | priceFormat}}</span>
               </div>
               <div>
                 <span class="tag" v-for="(item, idx) in house.decoration_condition.split('，')"
@@ -95,6 +95,14 @@ export default {
   created () {
     this.fetchRecommend()
     this.fetchBanner()
+  },
+
+  filters: {
+    // 后台返回的价格单位为元，且有时候返回待定，这里显示的是多少钱/平
+    priceFormat (backendVal) {
+      if (backendVal == '待定') return backendVal
+      return `${backendVal}/平`
+    },
   },
 
   methods: {
