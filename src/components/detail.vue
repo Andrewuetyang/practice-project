@@ -162,7 +162,7 @@
     <!-- 底部功能区 -->
     <div class="bottom-section fx fx-justify-between">
       <!-- 咨询是跳转到第三方IM应用中 暂时没提供 -->
-      <a class="link-item" href="mqqapi://card/show_pslcard?src_type=internal&version=1&uin=18863883&card_type=group&source=external">
+      <a class="link-item" :href="consultHref">
         <i class="icon-base follow-icon"></i>
         <span class="f-12">咨询</span>
       </a>
@@ -203,7 +203,6 @@ export default {
       index: 0,
       popupImgsIndex: 0,
       isPopupImgsShow: false,
-      imgSrc: 'url(//www.hjw68.com/wp-content/uploads/2017/11/2-4.png)',
       isFormPopupShow: false,
       reserveInfo: {
         title: '预约看房',
@@ -217,6 +216,7 @@ export default {
       },
       houseStyleList: [],
       latestHouseList: [],
+      consultQQ: '774859166' // 咨询对话的qq号
     }
   },
   components: {
@@ -238,7 +238,10 @@ export default {
       let result = `${this.index + 1}/${this.houseInfo.mainImageArr.length}`
       console.log(result, '333')
       return result
-    }
+    },
+    consultHref () {
+      return `mqqapi://card/show_pslcard?src_type=internal&version=1&uin=${this.consultQQ}&card_type=group&source=external`
+    },
   },
   filters: {
     // 后台返回的价格单位为元，且有时候返回待定，这里显示的是多少钱/平
