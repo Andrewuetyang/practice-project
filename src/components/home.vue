@@ -4,7 +4,7 @@
     <!-- 顶部导航栏 -->
     <head-nav></head-nav>
     <!-- banner -->
-    <section class="banner-box" :style="{backgroundImage: bannerSrc}">
+    <section class="banner-box" :style="{backgroundImage: bannerBgImage}">
       <div class="search-wrapper">
         <div class="search-box">
           <div class="search">
@@ -82,7 +82,7 @@ export default {
       ],
       houseList: [],
       keyword: '',
-      bannerSrc: ''
+      bannerBgImage: ''
     }
   },
   
@@ -105,7 +105,8 @@ export default {
     fetchBanner () {
       return new Promise((resolve, reject) => {
         this.fetchData(`/api/common/getWebBanner`).then(res => {
-          this.bannerSrc = res.data[0].image
+          this.bannerBgImage = `url(${res.data[0].image})`
+          console.log(this.bannerBgImage, 'bann')
           resolve(res)
         })
       })

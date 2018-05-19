@@ -328,7 +328,7 @@ export default {
     // 当前页面刷新获取最新楼盘详情
     getLatestDetail(id) {
       this.$router.push({path: '/detail', query: {id}})
-      // this.$router.go(0)
+      this.$router.go(0)
     }
   }
 }
