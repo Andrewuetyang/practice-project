@@ -55,7 +55,7 @@
         <li class="bd-t pt-20 pb-20 fx"
             @click="popupImgShow(houseStyle)"
             v-for="houseStyle in houseStyleList" :key="houseStyle.id">
-          <div class="mr-12 fx fx-align-center" style="width: 108px;">
+          <div class="mr-12 fx fx-align-center" style="width: 108px;max-height:81px;">
             <img class="img-full" :src="houseStyle.main_image" alt="">
           </div>
           <div class="desc-box">

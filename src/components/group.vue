@@ -95,6 +95,7 @@ export default {
     padding: 20px 0;
     .pic-left {
       width: 108px;
+      max-height: 81px;
       margin-right: 12px;
     }
     .desc-right {

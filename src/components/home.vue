@@ -238,6 +238,7 @@ export default {
         align-content: center;
         flex-shrink: 0;
         width: 108px;
+        max-height: 81px;
         position: relative;
         .img-desc {
           position: absolute;
