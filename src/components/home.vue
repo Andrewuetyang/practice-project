@@ -4,7 +4,7 @@
     <!-- 顶部导航栏 -->
     <head-nav></head-nav>
     <!-- banner -->
-    <section class="banner-box">
+    <section class="banner-box" :style="{backgroundImage: bannerSrc}">
       <div class="search-wrapper">
         <div class="search-box">
           <div class="search">
@@ -81,7 +81,8 @@ export default {
         ['1万以下', '1-2万', '全部'],
       ],
       houseList: [],
-      keyword: ''
+      keyword: '',
+      bannerSrc: ''
     }
   },
   
@@ -93,7 +94,7 @@ export default {
 
   created () {
     this.fetchRecommend()
-    // this.fetchBanner()
+    this.fetchBanner()
   },
 
   methods: {
@@ -103,8 +104,9 @@ export default {
     */
     fetchBanner () {
       return new Promise((resolve, reject) => {
-        this.fetchData(`/api/common/banner?city_id=${2}`).then(res => {
-          console.log(res, '3333')
+        this.fetchData(`/api/common/getWebBanner`).then(res => {
+          this.bannerSrc = res.data[0].image
+          resolve(res)
         })
       })
     },
@@ -163,7 +165,9 @@ export default {
   width: 100%;
   height: 180px;
   position: relative;
-  background: url(../assets/imgs/banner.jpg) no-repeat center center/cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
   .search-wrapper {
     position: absolute;
     left: 0;

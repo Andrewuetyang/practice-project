@@ -2,9 +2,12 @@
   <div class="pos-r" style="height: 100%; overflow: scroll;">
     <head-nav></head-nav>
     <div class="mb-12 pos-r" style="height: 200px;">
-      <swipe v-model="index" :pagination="false" :loop="false" style="height: 100%;">
-        <swipe-item style="height: 100%;">
-          <img class="img-full" :src="houseInfo.main_image" alt="">
+      <swipe v-model="index" :pagination="false" :loop="false"
+            v-if="houseInfo.id"
+            style="height: 100%;">
+        <swipe-item style="height: 100%;" v-for="(img, idx) in houseInfo.mainImageArr"
+                    :key="idx">
+          <img class="img-full" :src="img" alt="">
         </swipe-item>
       </swipe>
       <div class="pagination">{{pagination}}</div>
@@ -14,7 +17,7 @@
       <div>
         <div class="lh-24 bold mb-8">
           <span class="f-17 mr-8">{{houseInfo.house_name}}</span>
-          <span class="f-14 c-6 pl-8 bd-l">{{houseInfo.build_cat}}-{{houseInfo.sale_status}}</span>
+          <span class="f-14 c-6 pl-8 bd-l">{{houseInfo.build_cat}}-{{houseInfo.sale_status | saleStatusMap}}</span>
         </div>
         <div class="fx fx-justify-between fx-align-center f-20">
           <span class="f-16 bold c-red">均价<span class="f-20">{{houseInfo.average_price}}</span>/平</span>
@@ -43,24 +46,26 @@
       </ul>
     </div>
     <!-- 户型介绍 -->
-    <div class="bgc-w mb-12 pl-8 pr-8" @click="isPopupImgsShow = true">
+    <div class="bgc-w mb-12 pl-8 pr-8">
       <div class="lh-55 f-16">
         <span class="c-3 bold">户型介绍</span>
-        <span class="c-9">({{houseStyleList.length || '-'}}种)</span>
+        <span class="c-9">({{houseStyleList.length || '0'}}种)</span>
       </div>
       <ul>
-        <li class="bd-t pt-20 pb-20 fx" v-for="houseStyle in houseStyleList" :key="houseStyle.id">
+        <li class="bd-t pt-20 pb-20 fx"
+            @click="popupImgShow(houseStyle)"
+            v-for="houseStyle in houseStyleList" :key="houseStyle.id">
           <div class="mr-12 fx fx-align-center" style="width: 108px;">
             <img class="img-full" :src="houseStyle.main_image" alt="">
           </div>
           <div class="desc-box">
             <div class="f-16 lh-20 mb-6">
-              <span>3室2厅1卫 建面 约90平 - </span>
-              <span class="c-green">在售</span>
+              <span>{{houseStyle.style_name}} 建面 约{{houseStyle.cover}} - </span>
+              <span class="c-green">{{houseStyle.sale_status | saleStatusMap}}</span>
             </div>
-            <div class="c-8 f-12 lh-14 mb-6">3室2厅</div>
-            <div class="c-red f-13 bold lh-14 mb-8">参考价</div>
-            <div class="c-red f-13 bold lh-14 mb-8">参考首付</div>
+            <div class="c-8 f-12 lh-14 mb-6">{{houseStyle.style_name}}</div>
+            <div class="c-red f-13 bold lh-14 mb-8">参考价 {{houseStyle.price}}</div>
+            <div class="c-red f-13 bold lh-14 mb-8">参考首付 {{houseStyle.first_pay}}</div>
           </div>
         </li>
       </ul>
@@ -138,21 +143,11 @@
       <div class="info-head">最新开盘</div>
       <div class="pb-20">
         <ul class="b-list touch-scrolling">
-          <li class="b-list-item">
-            <div class="item-pic" :style="{backgroundImage: imgSrc}"></div>
-            <div class="c-red pt-12 lh-1 f-13">12500元/平</div>
-          </li>
-          <li class="b-list-item">
-            <div class="item-pic" :style="{backgroundImage: imgSrc}"></div>
-            <div class="c-red pt-12 lh-1 f-13">12500元/平</div>
-          </li>
-          <li class="b-list-item">
-            <div class="item-pic" :style="{backgroundImage: imgSrc}"></div>
-            <div class="c-red pt-12 lh-1 f-13">12500元/平</div>
-          </li>
-          <li class="b-list-item">
-            <div class="item-pic" :style="{backgroundImage: imgSrc}"></div>
-            <div class="c-red pt-12 lh-1 f-13">12500元/平</div>
+          <li class="b-list-item"
+              v-for="item in latestHouseList" :key="item.id"
+              @click="getLatestDetail(item.id)">
+            <div class="item-pic" :style="{backgroundImage: item.main_image}"></div>
+            <div class="c-red pt-12 lh-1 f-13">{{item.average_price | priceFormat}}</div>
           </li>
         </ul>
       </div>
@@ -167,10 +162,10 @@
     <!-- 底部功能区 -->
     <div class="bottom-section fx fx-justify-between">
       <!-- 咨询是跳转到第三方IM应用中 暂时没提供 -->
-      <div class="link-item">
+      <a class="link-item" href="mqqapi://card/show_pslcard?src_type=internal&version=1&uin=18863883&card_type=group&source=external">
         <i class="icon-base follow-icon"></i>
         <span class="f-12">咨询</span>
-      </div>
+      </a>
       <div class="link-item" @click="isFormPopupShow = true">
         <i class="icon-base reserve-icon"></i>
         <span class="f-12">预约</span>
@@ -182,14 +177,8 @@
     <div class="popup-imgs" v-if="isPopupImgsShow" @click="isPopupImgsShow = false">
       <div class="pos-r" style="width: 100%; height: 250px;">
         <swipe style="width: 100%; height: 100%;" v-model="popupImgsIndex" :pagination="false" :loop="false">
-          <swipe-item>
-            <img class="img-full" src="http://www.hjw68.com/wp-content/uploads/2017/09/样板间1-1-345x230.jpg" alt="">
-          </swipe-item>
-          <swipe-item>
-            <img class="img-full" src="http://www.hjw68.com/wp-content/uploads/2017/09/样板间1-1-345x230.jpg" alt="">
-          </swipe-item>
-          <swipe-item>
-            <img class="img-full" src="http://www.hjw68.com/wp-content/uploads/2017/09/样板间1-1-345x230.jpg" alt="">
+          <swipe-item v-for="(img, idx) in popupImgs" :key="idx">
+            <img class="img-full" :src="img" alt="">
           </swipe-item>
         </swipe>
         <div class="popup-close" @click.stop="isPopupImgsShow = false">
@@ -223,14 +212,11 @@ export default {
       id: this.$route.query.id,
       tel: this.$route.query.tel,
       houseInfo: {
-        decoration_condition: ''
+        decoration_condition: '',
+        mainImageArr: []
       },
       houseStyleList: [],
-    }
-  },
-  computed: {
-    pagination () {
-      return `${this.index + 1}/1`
+      latestHouseList: [],
     }
   },
   components: {
@@ -242,19 +228,59 @@ export default {
   created () {
     this.fetchInfo()
     this.fetchHouseStyle()
+    this.fetchLatestHouses()
   },
   computed: {
     telHref () {
       return `tel:${this.tel}`
     },
+    pagination () {
+      let result = `${this.index + 1}/${this.houseInfo.mainImageArr.length}`
+      console.log(result, '333')
+      return result
+    }
+  },
+  filters: {
+    // 后台返回的价格单位为元，且有时候返回待定，这里显示的是多少钱/平
+    priceFormat (backendVal) {
+      if (backendVal == '待定') return backendVal
+      return `${backendVal}/平`
+    },
+
+    saleStatusMap (status) {
+      let result = ''
+      switch (Number(status)) {
+        case 1:
+          result = '在售'
+          break
+        case 2:
+          result = '待售'
+          break
+        case 3:
+          result = '售罄'
+          break
+      }
+      return result
+    },
   },
   methods: {
+    // 户型图片展示, 需要先设置对于户型的图片
+    popupImgShow (houseStyle) {
+      this.popupImgs = houseStyle.mainImageArr
+      this.popupImgsIndex = 0
+      this.isPopupImgsShow = true
+    },
     // 获取楼盘信息
     fetchInfo () {
       return new Promise((resolve, reject) => {
         this.fetchData(`/api/houses/detail?id=${
           this.id
         }`).then(res => {
+          let mainImageArr = []
+          if (res.data.main_image) mainImageArr.push(res.data.main_image)
+          if (res.data.main_image2) mainImageArr.push(res.data.main_image2)
+          if (res.data.main_image3) mainImageArr.push(res.data.main_image3)
+          res.data.mainImageArr = mainImageArr
           this.houseInfo = res.data
           resolve(res)
         }).catch(err => {
@@ -269,6 +295,14 @@ export default {
       return new Promise((resolve, reject) => {
         this.fetchData(`/api/housesStyle/index?supplier_house=${this.id}`)
             .then(res => {
+              let mainImageArr
+              for (let houseStyle of res.data.data) {
+                mainImageArr = []
+                if (houseStyle.main_image) mainImageArr.push(houseStyle.main_image)
+                if (houseStyle.main_image2) mainImageArr.push(houseStyle.main_image2)
+                if (houseStyle.main_image3) mainImageArr.push(houseStyle.main_image3)
+                houseStyle.mainImageArr = mainImageArr.slice()
+              }
               this.houseStyleList = res.data.data
               resolve(res)
             }).catch(err => {
@@ -277,6 +311,25 @@ export default {
             })
       })
     },
+
+    // 获取最新开盘
+    fetchLatestHouses() {
+      return new Promise((resolve, reject) => {
+        this.fetchData(`/api/houses/latestHouses?page=1&page_size=10`).then(res => {
+          this.latestHouseList = res.data
+          resolve(res)
+        }).catch(err => {
+          console.log(err)
+          reject(err)
+        })
+      })
+    },
+
+    // 当前页面刷新获取最新楼盘详情
+    getLatestDetail(id) {
+      this.$router.push({path: '/detail', query: {id}})
+      // this.$router.go(0)
+    }
   }
 }
 </script>
