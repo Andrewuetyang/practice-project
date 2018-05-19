@@ -1,6 +1,6 @@
 <template>
   <div class="pos-r" style="height: 100%; overflow: scroll;">
-    <div class="pos-r" style="height: 100%; overflow: scroll;">
+    <div class="pos-r" ref="scrollBox" style="height: 100%; overflow: scroll;">
       <head-nav></head-nav>
       <div class="mb-12 pos-r" style="height: 200px;">
         <swipe v-model="index" :pagination="false" :loop="false"
@@ -146,7 +146,7 @@
           <ul class="b-list touch-scrolling">
             <li class="b-list-item"
                 v-for="item in latestHouseList" :key="item.id"
-                @click="getLatestDetail(item.id)">
+                @click="getLatestDetail(item)">
               <div class="item-pic" :style="{backgroundImage: item.main_image}"></div>
               <div class="c-red pt-12 lh-1 f-13">{{item.average_price | priceFormat}}</div>
             </li>
@@ -175,7 +175,7 @@
         </div>
       </div>
     </div>
-    
+
     <form-popup :is-form-popup-show="isFormPopupShow"
                 :info="reserveInfo"
                 @close="isFormPopupShow = false"></form-popup>
@@ -332,9 +332,13 @@ export default {
     },
 
     // 当前页面刷新获取最新楼盘详情
-    getLatestDetail(id) {
-      this.$router.push({path: '/detail', query: {id}})
-      this.$router.go(0)
+    getLatestDetail(item) {
+      this.id = item.id
+      this.tel = item.tel
+      this.$refs['scrollBox'].scrollTop = 0
+      this.fetchInfo()
+      this.fetchHouseStyle()
+      this.fetchLatestHouses()
     }
   }
 }
