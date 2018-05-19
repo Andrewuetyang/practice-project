@@ -28,7 +28,7 @@
       </ul>
     </div>
     <!-- 底部热线联系方式按钮区域 -->
-    <hotline-bottom></hotline-bottom>
+    <hotline-bottom btn-text="团购热线" :tel="tel"></hotline-bottom>
     <!-- 团购报名 -->
     <form-popup :is-form-popup-show="isFormPopupShow"
                 :info="formInfo"
@@ -52,7 +52,8 @@ export default {
       },
       page: 1,
       pageSize: 1000,
-      groupList: []
+      groupList: [],
+      tel: '', // 团购热线电话
     }
   },
   components: {

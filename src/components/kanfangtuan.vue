@@ -40,7 +40,7 @@
       </p> -->
     </div>
     
-    <hotline-bottom></hotline-bottom>
+    <hotline-bottom btn-text="看房热线" :tel="tel"></hotline-bottom>
 
     <form-popup :is-form-popup-show="isFormPopupShow"
                 :info="formInfo"
@@ -64,7 +64,8 @@ export default {
       },
       page: 1,
       pageSize: 1000,
-      groupList: []
+      groupList: [],
+      tel: '' // 看房热线电话
     }
   },
   components: {
@@ -87,7 +88,7 @@ export default {
           resolve(res)
         })
       })
-    }
+    },
   }
 }
 </script>

@@ -1,11 +1,18 @@
 <template>
   <div class="bottom-section fx">
-    <div class="btn-base c-btn fx-1 btn-fbk-green">看房热线</div>
+    <a class="btn-base c-btn fx-1 btn-fbk-green" :href="telHref">
+      {{btnText + tel}}
+    </a>
   </div>
 </template>
 <script>
 export default {
-  
+  props: ['btnText', 'tel'],
+  computed: {
+    telHref () {
+      return `tel:${this.tel}`
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>

@@ -18,7 +18,8 @@
           </li>
           <li class="mt-10 mb-10 fx fx-align-center">
             <div class="f-13" style="width: 26%;">备注信息:</div>
-            <textarea class="fx-1 text-input" maxlength="800" v-model="remark"></textarea>
+            <textarea class="fx-1 text-area"
+                      maxlength="800" v-model="remark"></textarea>
           </li>
           <!-- <li class="mt-10 mb-10 fx fx-align-center">
             <div class="f-13" style="width: 26%;">验证码:</div>
@@ -44,6 +45,15 @@ export default {
       remark: '',
       // code: ''
     }
+  },
+  watch: {
+    isFormPopupShow (newV) {
+      if (newV) {
+        this.userName = ''
+        this.phoneNo = ''
+        this.remark = ''
+      }
+    },
   },
   methods: {
     // 预约校验
@@ -78,6 +88,14 @@ export default {
   padding: 0 8px;
   height: 31px;
   line-height: 31px;
+  border: 1px solid #eee;
+  background-color: #f9f9f9;
+}
+
+.text-area {
+  height: 44px;
+  line-height: 22px;
+  padding: 0 8px;
   border: 1px solid #eee;
   background-color: #f9f9f9;
 }

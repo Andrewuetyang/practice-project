@@ -21,6 +21,11 @@ input, button, select, option, textarea {
   outline: none;
 }
 
+input, textarea {
+  appearance: none;
+  -webkit-appearance: none;
+}
+
 input, button {
   font-size: 14px;
 }
