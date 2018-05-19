@@ -1,31 +1,34 @@
 <template>
   <div class="pos-r full-box">
-    <head-nav></head-nav>
-    <div class="pl-8 pr-8 bgc-w" style="padding-bottom: 100px;">
-      <ul class="ul">
-        <li class="li bd-b" v-for="(item, index) in groupList" :key="index">
-          <div class="fx fx-align-center">
-            <div class="pic-left">
-              <img class="img-full" :src="item.image" alt="">
-            </div>
-            <div class="desc-right c-grey">
-              <div class="mb-7 f-16 bold lh-19 c-3">{{item.name}}({{item.attend_num || 0}}人已参加)</div>
-              <div class="fx mb-6 f-12">
-                <span class="text-overflow">特色：{{item.special}}</span>
+    <div class="pos-r full-box">
+      <head-nav></head-nav>
+      <div class="pl-8 pr-8 bgc-w" style="padding-bottom: 100px;">
+        <ul class="ul">
+          <li class="li bd-b" v-for="(item, index) in groupList" :key="index">
+            <div class="fx fx-align-center">
+              <div class="pic-left">
+                <img class="img-full" :src="item.image" alt="">
               </div>
-              <div class="fx mb-6 f-12">
-                <span class="text-overflow">户型：{{item.houses_style}}</span>
+              <div class="desc-right c-grey">
+                <div class="mb-7 f-16 bold lh-19 c-3">{{item.name}}({{item.attend_num || 0}}人已参加)</div>
+                <div class="fx mb-6 f-12">
+                  <span class="text-overflow">特色：{{item.special}}</span>
+                </div>
+                <div class="fx mb-6 f-12">
+                  <span class="text-overflow">户型：{{item.houses_style}}</span>
+                </div>
+                <div class="lh-28 c-3" style="height: 28px;">{{item.countDownTxt}}</div>
               </div>
-              <div class="lh-28 c-3" style="height: 28px;">{{item.countDownTxt}}</div>
             </div>
-          </div>
-          <div class="fx lh-33">
-            <div class="btn-base f-14" style="width: 108px;" @click="isFormPopupShow = true">团购报名</div>
-            <div class="ta-c fx-1 f-16 c-green">报名团购优惠早知道</div>
-          </div>
-          <p class="prev-act ta-c c-c" v-if="item.isOverdue">往期活动</p>
-        </li>
-      </ul>
+            <div class="fx lh-33">
+              <div class="btn-base f-14" style="width: 108px;" @click="isFormPopupShow = true">团购报名</div>
+              <div class="ta-c fx-1 f-16 c-green">报名团购优惠早知道</div>
+            </div>
+            <p class="prev-act ta-c c-c" v-if="item.isOverdue">往期活动</p>
+          </li>
+        </ul>
+        <p class="c-8 f-14 ta-c lh-38">到底了哟~</p>
+      </div>
     </div>
     <!-- 底部热线联系方式按钮区域 -->
     <hotline-bottom btn-text="团购热线" :tel="tel"></hotline-bottom>
@@ -51,7 +54,7 @@ export default {
         type: 2
       },
       page: 1,
-      pageSize: 1000,
+      pageSize: 1000, // 之所以不做分页加载，是因为这里的倒计时太多，分页处理比较麻烦，预计用户也不会一次添加很多团购
       groupList: [],
       tel: '', // 团购热线电话
     }

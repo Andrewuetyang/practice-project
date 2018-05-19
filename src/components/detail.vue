@@ -1,194 +1,197 @@
 <template>
   <div class="pos-r" style="height: 100%; overflow: scroll;">
-    <head-nav></head-nav>
-    <div class="mb-12 pos-r" style="height: 200px;">
-      <swipe v-model="index" :pagination="false" :loop="false"
-            v-if="houseInfo.id"
-            style="height: 100%;">
-        <swipe-item style="height: 100%;" v-for="(img, idx) in houseInfo.mainImageArr"
-                    :key="idx">
-          <img class="img-full" :src="img" alt="">
-        </swipe-item>
-      </swipe>
-      <div class="pagination">{{pagination}}</div>
-    </div>
-    <!-- 基本信息 -->
-    <div class="base-info bd-b bd-t mb-12">
-      <div>
-        <div class="lh-24 bold mb-8">
-          <span class="f-17 mr-8">{{houseInfo.house_name}}</span>
-          <span class="f-14 c-6 pl-8 bd-l">{{houseInfo.build_cat}}-{{houseInfo.sale_status | saleStatusMap}}</span>
-        </div>
-        <div class="fx fx-justify-between fx-align-center f-20">
-          <span class="f-16 bold c-red">均价 <span class="f-20">{{houseInfo.average_price | priceFormat}}</span></span></span>
-          <span class="f-14" style="color: #939fa1;">占地面积：{{houseInfo.area}}平米</span>
-        </div>
-        <!-- 标签属性 -->
-        <div class="tag-box mt-8">
-          <span class="tag-detail"
-                v-for="(item, index) in houseInfo.decoration_condition.split('，')"
-                :key="index">{{item}}</span>
-        </div>
-      </div>
-      <ul class="mt-15">
-        <li class="bd-t lh-44 c-6 pos-r cell-arrow-right pt-10 pr-15 pb-10">
-          <a class="li-base text-overflow fx fx-align-center" href="#">
-            <i class="icon iconfont icon-location mr-8 lh-1"></i>
-            <span>{{houseInfo.address}}</span>
-          </a>
-        </li>
-        <li class="bd-t lh-44 c-6 pos-r cell-arrow-right pt-10 pr-15 pb-10">
-          <a class="li-base text-overflow fx fx-align-center" href="#">
-            <i class="icon iconfont icon-kaifashanglepuicon mr-8 lh-1"></i>
-            <span>{{houseInfo.develop_company}}</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <!-- 户型介绍 -->
-    <div class="bgc-w mb-12 pl-8 pr-8">
-      <div class="lh-55 f-16">
-        <span class="c-3 bold">户型介绍</span>
-        <span class="c-9">({{houseStyleList.length || '0'}}种)</span>
-      </div>
-      <ul>
-        <li class="bd-t pt-20 pb-20 fx"
-            @click="popupImgShow(houseStyle)"
-            v-for="houseStyle in houseStyleList" :key="houseStyle.id">
-          <div class="mr-12 fx fx-align-center" style="width: 108px;max-height:81px;">
-            <img class="img-full" :src="houseStyle.main_image" alt="">
-          </div>
-          <div class="desc-box">
-            <div class="f-16 lh-20 mb-6">
-              <span>{{houseStyle.style_name}} 建面 约{{houseStyle.cover}} - </span>
-              <span class="c-green">{{houseStyle.sale_status | saleStatusMap}}</span>
-            </div>
-            <div class="c-8 f-12 lh-14 mb-6">{{houseStyle.style_name}}</div>
-            <div class="c-red f-13 bold lh-14 mb-8">参考价 {{houseStyle.price}}</div>
-            <div class="c-red f-13 bold lh-14 mb-8">参考首付 {{houseStyle.first_pay}}</div>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <!-- 楼盘信息 -->
-    <div class="box-base mb-12 bd-t bd-b">
-      <div class="info-head">楼盘信息</div>
-      <ul>
-        <li class="info-list-item bd-t fx">
-          <div class="c-9" style="width: 80px;">楼盘别名</div>
-          <div class="">{{houseInfo.house_name}}</div>
-        </li>
-        <li class="info-list-item bd-t fx">
-          <div class="c-9" style="width: 80px;">开发商</div>
-          <div class="">{{houseInfo.develop_company}}</div>
-        </li>
-        <li class="info-list-item bd-t fx">
-          <div class="c-9" style="width: 80px;">最新开盘</div>
-          <div class="">{{houseInfo.open_time}}</div>
-        </li>
-        <li class="info-list-item bd-t fx">
-          <div class="c-9" style="width: 80px;">交房时间</div>
-          <div class="">{{houseInfo.delivery_time}}</div>
-        </li>
-        <li class="info-list-item bd-t fx">
-          <div class="c-9" style="width: 80px;">预售证号</div>
-          <div class="">{{houseInfo.presell_no}}</div>
-        </li>
-        <li class="info-list-item bd-t fx">
-          <div class="c-9" style="width: 80px;">项目地址</div>
-          <div class="">{{houseInfo.address}}</div>
-        </li>
-        <li class="info-list-item bd-t fx">
-          <div class="c-9" style="width: 80px;">物业类型</div>
-          <div class="">{{houseInfo.build_cat}}</div>
-        </li>
-        <li class="info-list-item bd-t fx">
-          <div class="c-9" style="width: 80px;">装修情况</div>
-          <div class="">{{houseInfo.decoration_condition}}</div>
-        </li>
-        <li class="info-list-item bd-t fx">
-          <div class="c-9" style="width: 80px;">车位数量</div>
-          <div class="">{{houseInfo.car_num}}</div>
-        </li>
-        <li class="info-list-item bd-t fx">
-          <div class="c-9" style="width: 80px;">容积率</div>
-          <div class="">{{houseInfo.cubage_rate}}</div>
-        </li>
-        <li class="info-list-item bd-t fx">
-          <div class="c-9" style="width: 80px;">绿化率</div>
-          <div class="">{{houseInfo. greening_rate}}</div>
-        </li>
-        <li class="info-list-item bd-t fx">
-          <div class="c-9" style="width: 80px;">占地面积</div>
-          <div class="">{{houseInfo.cover}}</div>
-        </li>
-        <li class="info-list-item bd-t fx">
-          <div class="c-9" style="width: 80px;">平均价格</div>
-          <div class="">{{houseInfo.average_price}}</div>
-        </li>
-        <li class="info-list-item bd-t fx">
-          <div class="c-9" style="width: 80px;">物业公司</div>
-          <div class="">{{houseInfo.property_company}}</div>
-        </li>
-      </ul>
-    </div>
-    <!-- 楼盘简介 -->
-    <div class="box-base mb-12 bd-t bd-b">
-      <div class="info-head bd-b">楼盘简介</div>
-      <!-- <div class="f-13 pt-16 pb-16" style="line-height: 1.9;" v-html="houseInfo.content"></div> -->
-      <div class="f-13 pt-16 pb-16 house-desc" v-html="houseInfo.content"></div>
-    </div>
-    <!-- 最新开盘 -->
-    <div class="box-base mb-12 bd-t bd-b">
-      <div class="info-head">最新开盘</div>
-      <div class="pb-20">
-        <ul class="b-list touch-scrolling">
-          <li class="b-list-item"
-              v-for="item in latestHouseList" :key="item.id"
-              @click="getLatestDetail(item.id)">
-            <div class="item-pic" :style="{backgroundImage: item.main_image}"></div>
-            <div class="c-red pt-12 lh-1 f-13">{{item.average_price | priceFormat}}</div>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <!-- 提示 -->
-    <div class="declear">
-      <span class="icon-declear"></span>
-      <div class="declear-txt">以上信息仅供参考，最终结果以开发商公布以及政府部门登记备案为准，谢谢！</div>
-    </div>
-    <!-- placeholder -->
-    <div style="height: 68px;"></div>
-    <!-- 底部功能区 -->
-    <div class="bottom-section fx fx-justify-between">
-      <!-- 咨询是跳转到第三方IM应用中 暂时没提供 -->
-      <a class="link-item" :href="consultHref">
-        <i class="icon-base follow-icon"></i>
-        <span class="f-12">咨询</span>
-      </a>
-      <div class="link-item" @click="isFormPopupShow = true">
-        <i class="icon-base reserve-icon"></i>
-        <span class="f-12">预约</span>
-      </div>
-      <a class="btn-base c-btn btn-fbk-green" style="width: 70%;" :href="telHref">联系售楼处{{tel}}</a>
-    </div>
-    <!-- 图片弹窗展示区域 -->
-    <!-- 这里需要用v-if， 虽然v-show渲染更节省性能，但是swipe组件不支持 -->
-    <div class="popup-imgs" v-if="isPopupImgsShow" @click="isPopupImgsShow = false">
-      <div class="pos-r" style="width: 100%; height: 250px;">
-        <swipe style="width: 100%; height: 100%;" v-model="popupImgsIndex" :pagination="false" :loop="false">
-          <swipe-item v-for="(img, idx) in popupImgs" :key="idx">
+    <div class="pos-r" style="height: 100%; overflow: scroll;">
+      <head-nav></head-nav>
+      <div class="mb-12 pos-r" style="height: 200px;">
+        <swipe v-model="index" :pagination="false" :loop="false"
+              v-if="houseInfo.id"
+              style="height: 100%;">
+          <swipe-item style="height: 100%;" v-for="(img, idx) in houseInfo.mainImageArr"
+                      :key="idx">
             <img class="img-full" :src="img" alt="">
           </swipe-item>
         </swipe>
-        <div class="popup-close" @click.stop="isPopupImgsShow = false">
-          <div class="icon-close-base icon-close"></div>
+        <div class="pagination">{{pagination}}</div>
+      </div>
+      <!-- 基本信息 -->
+      <div class="base-info bd-b bd-t mb-12">
+        <div>
+          <div class="lh-24 bold mb-8">
+            <span class="f-17 mr-8">{{houseInfo.house_name}}</span>
+            <span class="f-14 c-6 pl-8 bd-l">{{houseInfo.build_cat}}-{{houseInfo.sale_status | saleStatusMap}}</span>
+          </div>
+          <div class="fx fx-justify-between fx-align-center f-20">
+            <span class="f-16 bold c-red">均价 <span class="f-20">{{houseInfo.average_price | priceFormat}}</span></span></span>
+            <span class="f-14" style="color: #939fa1;">占地面积：{{houseInfo.area}}平米</span>
+          </div>
+          <!-- 标签属性 -->
+          <div class="tag-box mt-8">
+            <span class="tag-detail"
+                  v-for="(item, index) in houseInfo.decoration_condition.split('，')"
+                  :key="index">{{item}}</span>
+          </div>
+        </div>
+        <ul class="mt-15">
+          <li class="bd-t lh-44 c-6 pos-r cell-arrow-right pt-10 pr-15 pb-10">
+            <a class="li-base text-overflow fx fx-align-center" href="#">
+              <i class="icon iconfont icon-location mr-8 lh-1"></i>
+              <span>{{houseInfo.address}}</span>
+            </a>
+          </li>
+          <li class="bd-t lh-44 c-6 pos-r cell-arrow-right pt-10 pr-15 pb-10">
+            <a class="li-base text-overflow fx fx-align-center" href="#">
+              <i class="icon iconfont icon-kaifashanglepuicon mr-8 lh-1"></i>
+              <span>{{houseInfo.develop_company}}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- 户型介绍 -->
+      <div class="bgc-w mb-12 pl-8 pr-8">
+        <div class="lh-55 f-16">
+          <span class="c-3 bold">户型介绍</span>
+          <span class="c-9">({{houseStyleList.length || '0'}}种)</span>
+        </div>
+        <ul>
+          <li class="bd-t pt-20 pb-20 fx"
+              @click="popupImgShow(houseStyle)"
+              v-for="houseStyle in houseStyleList" :key="houseStyle.id">
+            <div class="mr-12 fx fx-align-center" style="width: 108px;max-height:81px;">
+              <img class="img-full" :src="houseStyle.main_image" alt="">
+            </div>
+            <div class="desc-box">
+              <div class="f-16 lh-20 mb-6">
+                <span>{{houseStyle.style_name}} 建面 约{{houseStyle.cover}} - </span>
+                <span class="c-green">{{houseStyle.sale_status | saleStatusMap}}</span>
+              </div>
+              <div class="c-8 f-12 lh-14 mb-6">{{houseStyle.style_name}}</div>
+              <div class="c-red f-13 bold lh-14 mb-8">参考价 {{houseStyle.price}}</div>
+              <div class="c-red f-13 bold lh-14 mb-8">参考首付 {{houseStyle.first_pay}}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- 楼盘信息 -->
+      <div class="box-base mb-12 bd-t bd-b">
+        <div class="info-head">楼盘信息</div>
+        <ul>
+          <li class="info-list-item bd-t fx">
+            <div class="c-9" style="width: 80px;">楼盘别名</div>
+            <div class="">{{houseInfo.house_name}}</div>
+          </li>
+          <li class="info-list-item bd-t fx">
+            <div class="c-9" style="width: 80px;">开发商</div>
+            <div class="">{{houseInfo.develop_company}}</div>
+          </li>
+          <li class="info-list-item bd-t fx">
+            <div class="c-9" style="width: 80px;">最新开盘</div>
+            <div class="">{{houseInfo.open_time}}</div>
+          </li>
+          <li class="info-list-item bd-t fx">
+            <div class="c-9" style="width: 80px;">交房时间</div>
+            <div class="">{{houseInfo.delivery_time}}</div>
+          </li>
+          <li class="info-list-item bd-t fx">
+            <div class="c-9" style="width: 80px;">预售证号</div>
+            <div class="">{{houseInfo.presell_no}}</div>
+          </li>
+          <li class="info-list-item bd-t fx">
+            <div class="c-9" style="width: 80px;">项目地址</div>
+            <div class="">{{houseInfo.address}}</div>
+          </li>
+          <li class="info-list-item bd-t fx">
+            <div class="c-9" style="width: 80px;">物业类型</div>
+            <div class="">{{houseInfo.build_cat}}</div>
+          </li>
+          <li class="info-list-item bd-t fx">
+            <div class="c-9" style="width: 80px;">装修情况</div>
+            <div class="">{{houseInfo.decoration_condition}}</div>
+          </li>
+          <li class="info-list-item bd-t fx">
+            <div class="c-9" style="width: 80px;">车位数量</div>
+            <div class="">{{houseInfo.car_num}}</div>
+          </li>
+          <li class="info-list-item bd-t fx">
+            <div class="c-9" style="width: 80px;">容积率</div>
+            <div class="">{{houseInfo.cubage_rate}}</div>
+          </li>
+          <li class="info-list-item bd-t fx">
+            <div class="c-9" style="width: 80px;">绿化率</div>
+            <div class="">{{houseInfo. greening_rate}}</div>
+          </li>
+          <li class="info-list-item bd-t fx">
+            <div class="c-9" style="width: 80px;">占地面积</div>
+            <div class="">{{houseInfo.cover}}</div>
+          </li>
+          <li class="info-list-item bd-t fx">
+            <div class="c-9" style="width: 80px;">平均价格</div>
+            <div class="">{{houseInfo.average_price}}</div>
+          </li>
+          <li class="info-list-item bd-t fx">
+            <div class="c-9" style="width: 80px;">物业公司</div>
+            <div class="">{{houseInfo.property_company}}</div>
+          </li>
+        </ul>
+      </div>
+      <!-- 楼盘简介 -->
+      <div class="box-base mb-12 bd-t bd-b">
+        <div class="info-head bd-b">楼盘简介</div>
+        <!-- <div class="f-13 pt-16 pb-16" style="line-height: 1.9;" v-html="houseInfo.content"></div> -->
+        <div class="f-13 pt-16 pb-16 house-desc" v-html="houseInfo.content"></div>
+      </div>
+      <!-- 最新开盘 -->
+      <div class="box-base mb-12 bd-t bd-b">
+        <div class="info-head">最新开盘</div>
+        <div class="pb-20">
+          <ul class="b-list touch-scrolling">
+            <li class="b-list-item"
+                v-for="item in latestHouseList" :key="item.id"
+                @click="getLatestDetail(item.id)">
+              <div class="item-pic" :style="{backgroundImage: item.main_image}"></div>
+              <div class="c-red pt-12 lh-1 f-13">{{item.average_price | priceFormat}}</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- 提示 -->
+      <div class="declear">
+        <span class="icon-declear"></span>
+        <div class="declear-txt">以上信息仅供参考，最终结果以开发商公布以及政府部门登记备案为准，谢谢！</div>
+      </div>
+      <!-- placeholder -->
+      <div style="height: 68px;"></div>
+      <!-- 图片弹窗展示区域 -->
+      <!-- 这里需要用v-if， 虽然v-show渲染更节省性能，但是swipe组件不支持 -->
+      <div class="popup-imgs" v-if="isPopupImgsShow" @click="isPopupImgsShow = false">
+        <div class="pos-r" style="width: 100%; height: 250px;">
+          <swipe style="width: 100%; height: 100%;" v-model="popupImgsIndex" :pagination="false" :loop="false">
+            <swipe-item v-for="(img, idx) in popupImgs" :key="idx">
+              <img class="img-full" :src="img" alt="">
+            </swipe-item>
+          </swipe>
+          <div class="popup-close" @click.stop="isPopupImgsShow = false">
+            <div class="icon-close-base icon-close"></div>
+          </div>
         </div>
       </div>
     </div>
+    
     <form-popup :is-form-popup-show="isFormPopupShow"
                 :info="reserveInfo"
                 @close="isFormPopupShow = false"></form-popup>
+    <!-- 底部功能区 -->
+      <div class="bottom-section fx fx-justify-between">
+        <!-- 咨询是跳转到第三方IM应用中 暂时没提供 -->
+        <a class="link-item" :href="consultHref">
+          <i class="icon-base follow-icon"></i>
+          <span class="f-12">咨询</span>
+        </a>
+        <div class="link-item" @click="isFormPopupShow = true">
+          <i class="icon-base reserve-icon"></i>
+          <span class="f-12">预约</span>
+        </div>
+        <a class="btn-base c-btn btn-fbk-green" style="width: 70%;" :href="telHref">联系售楼处</a>
+      </div>
   </div>
 </template>
 <script>
@@ -443,7 +446,7 @@ export default {
 }
 
 .bottom-section {
-  position: fixed;
+  position: absolute;
   left: 0;
   bottom: 0;
   z-index: 99;

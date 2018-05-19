@@ -1,7 +1,7 @@
 <template>
   <div class="bottom-section fx">
     <a class="btn-base c-btn fx-1 btn-fbk-green" :href="telHref">
-      {{btnText + tel}}
+      {{btnText}}
     </a>
   </div>
 </template>
@@ -17,10 +17,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .bottom-section {
-  position: fixed;
+  position: absolute;
   left: 0;
   bottom: 0;
   z-index: 99;
+  transform: translateZ(0);
   box-sizing: border-box;
   background: #fff;
   width: 100%;

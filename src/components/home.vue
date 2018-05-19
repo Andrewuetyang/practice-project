@@ -125,7 +125,7 @@ export default {
       // 猜你喜欢其实就是没带city_id和keword的列表
       // 因此在请求的时候，需要使用noResult这个变量，来过滤city_id和keyword
       return new Promise((resolve, reject) => {
-        this.fetchData(`/api/houses/recommend`).then(res => {
+        this.fetchData(`/api/houses/recommend?page=1&page_size=5`).then(res => {
           this.houseList = res.data
           resolve(res)
         }).catch(err => {
