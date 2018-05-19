@@ -72,6 +72,7 @@ export default {
         }&page_size=${
           this.pageSize
         }`).then(res => {
+          this.tel = res.data[0] && res.data[0].tel
           this.groupList = this.countDown(res.data)
           resolve(res)
         })
@@ -97,6 +98,9 @@ export default {
       width: 108px;
       max-height: 81px;
       margin-right: 12px;
+      display: flex;
+      align-content: center;
+      flex-shrink: 0;
     }
     .desc-right {
       flex: 1;

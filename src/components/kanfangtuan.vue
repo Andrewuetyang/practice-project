@@ -84,6 +84,7 @@ export default {
         }&page_size=${
           this.pageSize
         }`).then(res => {
+          this.tel = res.data[0] && res.data[0].tel
           this.groupList = this.countDown(res.data)
           resolve(res)
         })
