@@ -36,7 +36,7 @@
             <i class="icon-sprite icon-sprite-triangle"></i>
           </li>
         </ul>
-        <p class="no-data bd-b c-9" v-if="noResult">没有找到 "{{filter}}" 的楼盘 请换其他筛选条件~</p>
+        <p class="no-data bd-b c-9" v-if="noResult">没有找到 "{{lastFilter}}" 的楼盘 请换其他筛选条件~</p>
         <p class="guess c-green bold" v-if="noResult">猜你喜欢</p>
         <ul class="building-list">
           <li class="list-li bd-b" v-for="(house, idx) in houseList" :key="idx">
@@ -117,8 +117,8 @@
               </div>
             </div>
             <div class="f-16 ta-c bold" style="line-height: 49px;">
-              <div class="c-9">清空条件</div>
-              <div class="bgc-green c-f">确定</div>
+              <!-- <div class="c-9">清空条件</div> -->
+              <div class="bgc-green c-f" @click="isShowFilterPopup = false">确定</div>
             </div>
           </div>
         </div>
@@ -142,12 +142,11 @@ export default {
       houseList: [], // 楼盘列表
       pageSize: 10,
       page: 1,
-      filter: '', // 筛选名称
       city_id: '',
       tempKeyword: '', // 临时输入关键词
       keyword: this.$route.query.keyword || '',
-      sale_status: this.$route.query.sale_status || '',
-      price: this.$route.query.price || '',
+      sale_status: '',
+      price: '',
       house_size: this.$route.query.house_size || '',
       noResult: false, // 没有搜索和查询结果
       cityList: [], // 城市列表
@@ -186,6 +185,12 @@ export default {
     cFooter
   },
   created () {
+    let query = this.$route.query
+
+    this.sale_status = query.sale_status
+    this.price = query.price
+    this.house_size = query.house_size
+
     this.getCityList().then(res => {
       // this.getHouseStyle()
     })
@@ -210,21 +215,35 @@ export default {
     },
   },
 
+  computed: {
+    // 筛选条件， 总
+    filter () {
+      let result = []
+      if (this.keyword) result.push(this.keyword)
+      if (this.areaTxt != '区域') result.push(this.areaTxt)
+      if (this.houseSizeTxt != '房型') result.push(this.houseSizeTxt)
+      if (this.statusTxt != '状态') result.push(this.statusTxt)
+      if (this.priceTxt != '售价') result.push(this.priceTxt)
+      return result.join('、')
+    },
+  },
+
   watch: {
     city_id (newV) {
-      this.reHouseList()
+      let currentCity = this.cityList.filter(val => val.id === newV)
+      this.areaTxt = currentCity[0] && currentCity[0].city_name || '区域'
     },
     house_size (newV) {
-      this.reHouseList()
+      this.houseSizeTxt = this.houseSizeList[newV - 1] || '房型'
     },
     sale_status (newV) {
-      this.reHouseList()
+      this.statusTxt = this.saleStatusList[newV - 1] || '状态'
     },
     price (newV) {
-      this.reHouseList()
+      this.priceTxt = this.priceList[newV - 1] || '售价'
     },
-    keyword (newV) {
-      this.reHouseList()
+    filter (newV, oldV) {
+      this.lastFilter = oldV
     }
   },
   methods: {
@@ -242,6 +261,11 @@ export default {
         // 筛选请求没有数据，需要展示猜你喜欢
         if (!res.data || !res.data.length) {
           this.noResult = true
+          this.city_id = ''
+          this.price = ''
+          this.house_size = ''
+          this.sale_status = ''
+          this.keyword = ''
           this.getHouseList()
         } else {
           this.noResult = false
@@ -249,37 +273,43 @@ export default {
       })
     },
 
+    selectFilterManualChange () {
+      this.reHouseList({
+        city_id: this.city_id,
+        price: this.price,
+        house_size: this.house_size,
+        sale_status: this.sale_status,
+        keyword: this.keyword
+      })
+    },
+
     selectCity(city) {
       this.city_id = city.id
-      this.filter = city.city_name
-      this.areaTxt = city.city_name
       this.isShowFilterPopup = false
+      this.selectFilterManualChange()
     },
 
     selectHouseSize(houseSize, index) {
       this.house_size = index + 1
-      this.filter = houseSize
-      this.houseSizeTxt = houseSize
       this.isShowFilterPopup = false
+      this.selectFilterManualChange()
     },
 
     selectPrice(price, index) {
       this.price = index + 1
-      this.filter = price
-      this.priceTxt = price
       this.isShowFilterPopup = false
+      this.selectFilterManualChange()
     },
 
     selectSaleStaus(saleStatus, index) {
       this.sale_status = index + 1
-      this.filter = saleStatus
-      this.statusTxt = saleStatus
       this.isShowFilterPopup = false
+      this.selectFilterManualChange()
     },
 
     searchKeyword () {
       this.keyword = this.tempKeyword
-      this.filter = this.keyword
+      this.selectFilterManualChange()
     },
 
     getHouseList (param = {}) {
